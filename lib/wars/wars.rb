@@ -69,17 +69,18 @@ module Wars
       end
     end
   end
-
-  def self.run_events!
-    # Player events
+  
+  def self.run_player_events
+    Wars.log "Running player events"
     Data::Events.each do |event|
-      log "Event> #{event.description}"
       if event.apply(player)
         self.event = event
       end
-    end
-
-    # Fight events
+    end    
+  end
+  
+  def self.run_fight_events
+    Wars.log "Running fight events"
     if Data::Encounters
       if player.days_without_incident > Data::EncounterRate
         fight = Fight.new(:player => self.player)
@@ -90,6 +91,11 @@ module Wars
         fight.save
       end
     end
+  end
+
+  def self.run_events!
+    run_player_events
+    run_fight_events
   end
 
   def self.update_prices!
