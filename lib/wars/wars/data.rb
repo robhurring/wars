@@ -23,13 +23,13 @@ module Wars
     ]
     
     Locations = [
-      Location.new(:name => 'Parking Lot'),
-      Location.new(:name => 'Lobby'),
-      Location.new(:name => 'Cafeteria'),
-      Location.new(:name => '1st Floor'),
-      Location.new(:name => '2nd Floor'),
-      Location.new(:name => '3d Floor'),
-      Location.new(:name => 'Roof')
+      Location.new(:id => 1, :name => 'Parking Lot'),
+      Location.new(:id => 2, :name => 'Lobby'),
+      Location.new(:id => 3, :name => 'Cafeteria'),
+      Location.new(:id => 4, :name => '1st Floor'),
+      Location.new(:id => 5, :name => '2nd Floor'),
+      Location.new(:id => 6, :name => '3d Floor'),
+      Location.new(:id => 7, :name => 'Roof')
     ]
     
     GiftShopInventory = [
