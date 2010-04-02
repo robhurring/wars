@@ -25,7 +25,13 @@ module Wars
       @name = attributes[:name] || 'Mystery Man'
       @strength = attributes[:strength] || DefaultStrength
       @defense = attributes[:defense] || DefaultDefense
-      @life = attributes[:life] || DefaultLife
+      @life = @base_life = attributes[:life] || DefaultLife
+    end
+
+    # HACK: when class caching is on the NPC's health is still set to negatives from the
+    # previous fight. this is just a bandaid
+    def reset!
+      @life = @base_life
     end
     
     def alive?

@@ -84,6 +84,8 @@ module Wars
       if player.days_without_incident > Data::EncounterRate
         fight = Fight.new(:player => self.player)
         npc = Npc.all[rand(Npc.all.size)]
+        # HACK: this sets the npc's life back to the original life. 
+        npc.reset!
         fight.npc_id = npc.id
         fight.save
       end
