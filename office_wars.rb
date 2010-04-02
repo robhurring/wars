@@ -130,13 +130,13 @@ class OfficeWars < Sinatra::Base
 
         if reward.first == :cash
           @player.cash += reward.last
-          reward_msg = "<br/>You were awarded $#{reward.last}"
+          reward_msg = "<br/>You took $#{reward.last}."
         elsif reward.first.is_a?(Wars::Product)
           @player.update_products(reward.first.to_h(:quantity => reward.last))
-          reward_msg = "<br/>You were awarded #{reward.last} &times; #{reward.first.name}"
+          reward_msg = "<br/>You took #{reward.last} &times; #{reward.first.name}."
         elsif reward.first.is_a?(Wars::Equipment)
           @player.update_equipment(reward.first.to_h(:quantity => reward.last))
-          reward_msg = "<br/>You were awarded #{reward.last} &times; #{reward.first.name}"
+          reward_msg = "<br/>You took #{reward.last} &times; #{reward.first.name}."
         end
                 
         flash[:notice] = "You've defeated <strong>#{npc.name}</strong>!#{reward_msg}"
