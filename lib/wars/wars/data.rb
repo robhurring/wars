@@ -3,7 +3,7 @@ module Wars
     MaxLoan = 30_000
     BookieTolerance = 30 # days
     Encounters = true
-    EncounterRate = 1 # days
+    EncounterRate = 5 # days
     BankInterestRate = 1.0015
     DebtInterestRate = 1.15
     
