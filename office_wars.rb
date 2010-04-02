@@ -73,7 +73,9 @@ class OfficeWars < Sinatra::Base
       npc.life -= @fight.npc_damage_taken
       
       if @player.run(npc)
-        flash[:notice] = "You got away!"
+        # TODO: this can probably be changed to a better amount
+        loss = @player.cash / (5 + rand(10))
+        flash[:notice] = "You got away! (But you dropped $#{loss} while running away...)"
         @fight.destroy
         @player.reset_fight_counter!
         redirect(url_for('/location/%d' % @player.location_id))
