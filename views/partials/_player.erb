@@ -25,7 +25,7 @@
     <li class='icon <%= life_icon %>'><tt><%= @player.life %></tt></li>
     <li class='icon money'><tt><%= format_number @player.cash %></tt></li>
     <li class='icon debt'><tt><%= format_number @player.debt %></tt></li>
-    <li class='icon <%= bookie_icon %>'>Bookie Happiness</li>
+    <li class='icon <%= bookie_icon %>'><small><%= Wars::Data::BookieName %>'s Happiness</small></li>
     <li class='icon bank'><tt><%= format_number @player.bank %></tt></li>
     <li class='icon space'><tt><%= @player.held %>/<%= @player.space %></tt></li>
   </ul>

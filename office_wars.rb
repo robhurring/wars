@@ -405,7 +405,7 @@ class OfficeWars < Sinatra::Base
     if error = @player.errors.on(:debt)
       flash[:error] = error
     else
-      flash[:notice] = "You borrowed $#{format_number amount} to #{Wars::Data::BookieName}, better pay it back quick!"
+      flash[:notice] = "You borrowed $#{format_number amount} from #{Wars::Data::BookieName}, better pay it back quick!"
     end
     
     if request.xhr?

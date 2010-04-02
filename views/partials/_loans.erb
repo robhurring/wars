@@ -1,6 +1,6 @@
 <div id='loans' class='block'>
   <h3><%= @store.name %></h3>
-  <p style='text-align:center'>You owe <strong>$<%= format_number @player.debt %></strong> to the bookie.</p>
+  <p style='text-align:center'>You owe <strong>$<%= format_number @player.debt %></strong> to <%= Wars::Data::BookieName %>.</p>
   
   <div class='fields_box'>
     <input type="text" name="amount" value="<%= @player.debt %>" id="amount" maxlength='10' size='5' class='text' /><br/>
