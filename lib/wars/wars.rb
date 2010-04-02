@@ -11,6 +11,7 @@ module Wars
   autoload :Npc, 'wars/npc'
   autoload :Fight, 'wars/fight'
   autoload :HighScore, 'wars/high_score'
+  autoload :Fighter, 'wars/fighter'
   
   mattr_accessor :logger
   def self.log(msg, level=:info); self.logger.send(level, "Wars> #{msg}") if self.logger end

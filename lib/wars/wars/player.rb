@@ -2,6 +2,8 @@ require 'digest/sha1'
 
 module Wars
   class Player < ActiveRecord::Base    
+    include Fighter
+    
     MaxLife = 100
     StartingSpace = 10
     StartingDefense = 0

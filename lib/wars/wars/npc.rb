@@ -1,5 +1,7 @@
 module Wars
   class Npc
+    include Fighter
+    
     cattr_accessor :index
     self.index = 0
 
