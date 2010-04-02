@@ -7,7 +7,7 @@ module Wars
 
     DefaultStrength = 10
     DefaultDefense = 10
-    DefaultLife = 100
+    DefaultLife = 50
     
     def self.all
       @@all ||= Data::Npcs
@@ -17,7 +17,8 @@ module Wars
       all.detect{ |o| o.id == id.to_i }
     end
 
-    attr_reader :id, :name, :strength, :defense, :life
+    attr_reader :id, :name, :strength, :defense
+    attr_accessor :life
     
     def initialize(attributes = {})
       @id = attributes[:id] || (self.index += 1)
