@@ -84,7 +84,7 @@ module Wars
           self.days_in_debt = 0
           self.life /= 2
         else
-          self.tombstone = "Pain sandwich courtesy of #{BookieName}"
+          self.tombstone = "Pain sandwich courtesy of #{Data::BookieName}"
           self.life = 0
         end
       }
