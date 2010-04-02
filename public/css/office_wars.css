@@ -163,6 +163,22 @@ ul.locations{
       font-size:18px;
       }
 
+#arena{
+  width:80%;
+  padding:10px;
+  margin:30px auto;
+  border:2px solid #ddd;
+  background:#fafafa;
+  }
+  .fight_box{
+    width:48%;
+    text-align:center;
+    }
+  #fight_controls{
+    margin-top:30px;
+    text-align:center;
+    }
+
 /* LI Icons */
 
 .icon{
