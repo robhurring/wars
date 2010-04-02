@@ -63,13 +63,13 @@ module Wars
       :description => "You found something shiny on the ground!",
       :condition => Proc.new{ rand(40) == 0 },
       :action => Proc.new{ 
-        rand_product = Data::Products[rand(Data::Products.size)].to_h.merge(:quantity => rand(5) + 1)
+        rand_product = Data.random_product.to_h.merge(:quantity => rand(5) + 1)
         self.products << rand_product
       }
      ),
      Event.new(
       :description => "#{BookieName} broke your legs! Better learn to pay up on time!",
-      :condition => Proc.new{ |p| p.days_in_debt > Data::BookieTolerance && !p.debt.zero? },
+      :condition => Proc.new{ |p| p.days_in_debt > BookieTolerance && !p.debt.zero? },
       :action => Proc.new{
         if self.cash > self.debt
           self.cash -= self.debt
@@ -85,5 +85,9 @@ module Wars
     # When making a new player they start with these items/equipments by default
     StartingEquipment = [Equipment.find(1).to_h(:quantity => 1)]
     StartingProducts = []
+    
+    def self.random_product
+      Data::Products[rand(Data::Products.size)]
+    end
   end
 end
