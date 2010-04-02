@@ -184,7 +184,7 @@ ul.locations{
 .icon{
   padding-left:25px;
   background-repeat: no-repeat;
-  background-position: left center;
+  background-position: left top;
   margin-bottom:5px;
   }
   .user{ background-image: url(../images/icons/user.png); }
