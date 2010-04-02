@@ -6,8 +6,8 @@ module Wars
     
     MaxLife = 100
     StartingSpace = 10
-    StartingDefense = 0
-    StartingStrength = 0
+    StartingDefense = 10
+    StartingStrength = 10
     StartingAttributes = {
       :life => MaxLife,
       :cash => 5_000,
@@ -52,6 +52,14 @@ module Wars
     # loads our products into Product objects and their quantity
     def product_map
       products.map{ |p| [Product.find(p[:id]), p[:quantity]] }
+    end
+  
+    def strength
+      StartingStrength + equipment_total(:strength)
+    end
+    
+    def defense
+      StartingDefense + equipment_total(:defense)
     end
   
     def score
