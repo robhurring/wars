@@ -80,6 +80,8 @@ module Wars
       :action => Proc.new{
         if self.cash > self.debt
           self.cash -= self.debt
+          self.debt = 0
+          self.days_in_debt = 0
           self.life /= 2
         else
           self.tombstone = "Pain sandwich courtesy of #{BookieName}"
