@@ -13,7 +13,9 @@ module Wars
       Equipment.new(:id => 2, :name => 'Briefcase', :limit => 2, :price => 10_000, :adds => :space, :amount => 15),
       Equipment.new(:id => 3, :name => 'Backpack', :limit => 1, :price => 50_000, :adds => :space, :amount => 50),
       Equipment.new(:id => 4, :name => 'Medical Kit', :limit => 10, :price => 750, :adds => :life, :amount => 10, :disposable => true),
-      Equipment.new(:id => 5, :name => 'Keyboard', :limit => 1, :price => 20_000, :adds => :strength, :amount => 10),
+      Equipment.new(:id => 5, :name => 'IBM Keyboard', :limit => 1, :price => 20_000, :adds => :strength, :amount => 10),
+      Equipment.new(:id => 6, :name => 'Mousing Star', :limit => 1, :price => 100_000, :adds => :strength, :amount => 50),
+      Equipment.new(:id => 7, :name => 'Peacoat', :limit => 1, :price => 25_000, :adds => :defense, :amount => 10)
     ]
         
     Products = [
@@ -40,7 +42,9 @@ module Wars
     ]
 
     SurvivalEquipment = [
-      Equipment.find(5)
+      Equipment.find(5),
+      Equipment.find(6),
+      Equipment.find(7)
     ]
 
     HospitalInventory = [
