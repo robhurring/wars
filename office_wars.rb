@@ -132,10 +132,10 @@ class OfficeWars < Sinatra::Base
           @player.cash += reward.last
           reward_msg = "<br/>You were awarded $#{reward.last}"
         elsif reward.first.is_a?(Wars::Product)
-          @player.products << reward.first.to_h(:quantity => reward.last)
+          @player.update_products(reward.first.to_h(:quantity => reward.last))
           reward_msg = "<br/>You were awarded #{reward.last} &times; #{reward.first.name}"
         elsif reward.first.is_a?(Wars::Equipment)
-          @player.equipment << reward.first.to_h(:quantity => reward.last)
+          @player.update_equipment(reward.first.to_h(:quantity => reward.last))
           reward_msg = "<br/>You were awarded #{reward.last} &times; #{reward.first.name}"
         end
                 
