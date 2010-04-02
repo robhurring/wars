@@ -14,6 +14,7 @@ module Wars
       :location_id => 1,
       :day => 1,
       :days_in_debt => 1,
+      :days_without_incident => 0,
       :equipment => (Data::StartingEquipment || []),
       :products => (Data::StartingProducts || [])
     }
@@ -32,6 +33,8 @@ module Wars
 
     # this should be set when the player is killed for the HighScore.reason
     attr_accessor :tombstone
+
+    has_one :fight
 
     validates_uniqueness_of :name
     validates_presence_of :password
@@ -88,6 +91,11 @@ module Wars
       self.day += 1
       self.days_in_debt += 1 if self.debt > 0
       self.days_in_debt = 0 if self.debt.zero?
+      self.days_without_incident += 1
+    end
+    
+    def reset_fight_counter!
+      self.days_without_incident = 0
     end
     
     def deposit(amount)

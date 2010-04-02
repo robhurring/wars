@@ -13,6 +13,7 @@ class OfficeWars < Sinatra::Base
   before do
     Wars.initialize!(session)
     setup_player || redirect(url_for '/login') unless request.url.include?('/login') || request.url.include?('/scores')
+    is_fighting? && redirect(url_for('/fight')) unless request.url.include?('/fight')
     is_game_over?
   end
 
@@ -56,6 +57,21 @@ class OfficeWars < Sinatra::Base
   get '/logout' do
     Wars.logout
     redirect(url_for('/'))
+  end
+
+# Fighting
+
+  get '/fight' do
+    @fight = @player.fight
+    @opponent = @fight.opponent
+    
+    erb :fight
+  end
+  
+  post '/fight/flee' do
+  end
+  
+  post '/fight/attack' do
   end
 
 # Moving
@@ -322,6 +338,10 @@ class OfficeWars < Sinatra::Base
 # Support
 
 private
+
+  def is_fighting?
+    @player && !@player.fight.blank?
+  end
 
   def is_game_over?
     if @player && !@player.alive?

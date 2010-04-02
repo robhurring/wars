@@ -3,7 +3,7 @@ module Wars
     MaxLoan = 30_000
     BookieTolerance = 30 # days
     Encounters = true
-    EncounterRate = 5 # days
+    EncounterRate = 1 # days
     BankInterestRate = 1.0015
     DebtInterestRate = 1.15
     
@@ -46,6 +46,10 @@ module Wars
       Store.new(:location_id => 1, :name => 'Loans \'R Us', :sells => :loans),
       Store.new(:location_id => 2, :name => 'Gift Shop', :sells => GiftShopInventory),
       Store.new(:location_id => 2, :name => 'Sensual Healing Hospice', :sells => HospitalInventory)
+    ]
+
+    Npcs = [
+      Npc.new(:id => 1, :name => 'Hall Monitor', :strength => 5, :defense => 0, :life => 100)
     ]
 
     Events = [

@@ -8,6 +8,8 @@ module Wars
   autoload :Store, 'wars/store'
   autoload :Event, 'wars/event'
   autoload :Data, 'wars/data'
+  autoload :Npc, 'wars/npc'
+  autoload :Fight, 'wars/fight'
   autoload :HighScore, 'wars/high_score'
   
   mattr_accessor :logger
@@ -68,10 +70,22 @@ module Wars
   end
 
   def self.run_events!
+    # Player events
     Data::Events.each do |event|
       log "Event> #{event.description}"
       if event.apply(player)
         self.event = event
+      end
+    end
+
+    # Fight events
+    if Data::Encounters
+      if player.days_without_incident > Data::EncounterRate
+        fight = Fight.new(:player => self.player)
+        opponent = Npc.all[rand(Npc.all.size)]
+        fight.opponent_id = opponent.id
+        fight.is_player = false
+        fight.save
       end
     end
   end
