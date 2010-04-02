@@ -26,6 +26,8 @@ module Wars
       @strength = attributes[:strength] || DefaultStrength
       @defense = attributes[:defense] || DefaultDefense
       @life = @base_life = attributes[:life] || DefaultLife
+      @rewards = attributes[:rewards] || :cash # can also be a Product | Equipment
+      @quantity = attributes[:quantity] || 1
     end
 
     # HACK: when class caching is on the NPC's health is still set to negatives from the
@@ -36,6 +38,15 @@ module Wars
     
     def alive?
       life > 0
+    end
+    
+    def quantity
+      @quantity.is_a?(Range) ? (@quantity.min + rand(@quantity.max - @quantity.min)) : @quantity
+    end
+    
+    # returns [type, quantity]
+    def reward      
+      [(@rewards.respond_to?(:call) ? @rewards.call : @rewards), quantity]
     end
   end
 end

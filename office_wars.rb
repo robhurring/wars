@@ -125,7 +125,21 @@ class OfficeWars < Sinatra::Base
       else
         @fight.destroy
         @player.reset_fight_counter!
-        flash[:notice] = "You've defeated <strong>#{npc.name}</strong>!"
+        reward = npc.reward
+        reward_msg = ''
+
+        if reward.first == :cash
+          @player.cash += reward.last
+          reward_msg = "<br/>You were awarded $#{reward.last}"
+        elsif reward.first.is_a?(Wars::Product)
+          @player.products << reward.first.to_h(:quantity => reward.last)
+          reward_msg = "<br/>You were awarded #{reward.last} &times; #{reward.first.name}"
+        elsif reward.first.is_a?(Wars::Equipment)
+          @player.equipment << reward.first.to_h(:quantity => reward.last)
+          reward_msg = "<br/>You were awarded #{reward.last} &times; #{reward.first.name}"
+        end
+                
+        flash[:notice] = "You've defeated <strong>#{npc.name}</strong>!#{reward_msg}"
         redirect(url_for('/location/%d' % @player.location_id))
       end
     else
