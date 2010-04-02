@@ -83,9 +83,8 @@ module Wars
     if Data::Encounters
       if player.days_without_incident > Data::EncounterRate
         fight = Fight.new(:player => self.player)
-        opponent = Npc.all[rand(Npc.all.size)]
-        fight.opponent_id = opponent.id
-        fight.is_player = false
+        npc = Npc.all[rand(Npc.all.size)]
+        fight.npc_id = npc.id
         fight.save
       end
     end
