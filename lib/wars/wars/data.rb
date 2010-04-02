@@ -87,7 +87,9 @@ module Wars
     StartingProducts = []
     
     def self.random_product
-      Data::Products[rand(Data::Products.size)]
+      product = Data::Products[rand(Data::Products.size)].dup
+      product.price = 0 # if it was used in an event, then free is the key
+      product
     end
   end
 end
