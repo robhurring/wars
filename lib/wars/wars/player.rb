@@ -11,7 +11,7 @@ module Wars
     StartingAttributes = {
       :life => MaxLife,
       :cash => 5_000,
-      :debt => 4_700,
+      :debt => 2_500,
       :bank => 0,
       :location_id => 1,
       :day => 1,
