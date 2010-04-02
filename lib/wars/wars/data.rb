@@ -49,7 +49,7 @@ module Wars
     ]
 
     Npcs = [
-      Npc.new(:id => 1, :name => 'Hall Monitor', :strength => 5, :defense => 0, :life => 100)
+      Npc.new(:id => 1, :name => 'Hall Monitor', :strength => 5, :defense => 0, :life => 35)
     ]
 
     Events = [
