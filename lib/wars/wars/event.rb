@@ -9,9 +9,7 @@ module Wars
     end
     
     def apply(object)
-      r = self.condition.call(object)
-      Wars.log r
-      if r
+      if self.condition.call(object)
         object.instance_eval(&action)
       end
     end
