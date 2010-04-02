@@ -1,0 +1,12 @@
+<div id='loans' class='block'>
+  <h3><%= @store.name %></h3>
+  <p style='text-align:center'>You owe <strong>$<%= format_number @player.debt %></strong> to the bookie.</p>
+  
+  <div class='fields_box'>
+    <input type="text" name="amount" value="<%= @player.debt %>" id="amount" maxlength='10' size='5' class='text' /><br/>
+    <input type="submit" value="Re-Pay" id="loan_repay" />
+    <input type="submit" value="Borrow" id="loan_borrow" />
+  </div>
+
+  <p><%= link_to "&larr; Leave #{@store.name}", '/location/%d' % @player.location_id %></p>
+</div>

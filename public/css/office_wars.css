@@ -1,0 +1,244 @@
+body{
+  margin:0;
+  font:14px/20px helvetica, tahoma,arial,sans-serif;
+  }
+
+h1, h2, h3, h4, h5, h6 {
+	font:bold 13px/16px helvetica,arial,freesans,clean,sans-serif;
+	color:#000;
+	margin:10px 0;
+	}
+	h1 {font-size:200%;}
+	h2 {font-size:180%;line-height:90%;}
+	h3 {
+	  font-size:130%; 
+	  color:#000;
+	  margin:15px 0;
+	  line-height:20px;
+	  }
+	h4 {font-size:110%;}
+	h5 {font-size:100%;}
+	h6 {font-size:90%; margin:0; padding:0;}
+
+img{ border:0; }
+
+p{ margin:10px 0; }
+
+a{
+	color:#648D39;
+	text-decoration:none;
+	outline:none;
+	}
+a:hover{
+	text-decoration:underline;
+	}
+
+hr{
+  height:2px;
+  background:#eee;
+  border:0;
+  margin:-20px 0 30px; /* even up from the 50px bottom margin on posts and make a 30px sep */
+  }
+  
+pre{
+  overflow:auto;
+  border:1px solid #ddd;
+  background:#fafafa;
+  padding:5px;
+  }
+
+ul{
+  margin:5px 0;
+  padding:0;
+  list-style:none;
+  }
+
+/* Global Support */
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+	}
+* html .clearfix             { zoom: 1; } /* IE6 */
+*:first-child+html .clearfix { zoom: 1; } /* IE7 */
+
+.left{ 	float:left;		}
+.right{ float:right;	}
+.center{ margin:0 auto; }
+.indent{ margin-left:20px; }
+
+#page_wrapper{
+  margin:10px auto;
+  width:950px;
+  }
+  #header{
+    text-align:center;
+    border-bottom:2px solid #ddd;
+    margin-bottom:40px;
+    }
+    #header h1{
+      line-height:200%;
+      color:#648D39;
+      }
+
+.block{
+  border:1px solid #ccc;
+  padding:0 10px;
+  float:left;
+  margin-right:10px;
+  }
+  #locations{
+    width:125px;
+    }
+  #player{
+    width:150px;
+    float:right;
+    margin-right:0;
+    }
+  #products,
+  #store,
+  #bank,
+  #loans{
+    width:585px;
+    padding-bottom:15px;
+    }
+    .product_table{
+      width:49%;
+      }
+      .product_table select{
+        width:98%;
+        height:150px;
+        font-size:14px;
+        }
+
+.event{
+	background: #CBC9FF;
+	border: 1px solid #7774B2;
+	padding: 10px;
+	color: #234774;
+	margin-bottom: 10px;
+	font-size:14px;
+	line-height:20px;
+  }
+
+#transaction{
+  margin:10px 0;
+  }
+  #transaction_details{
+    text-align:center;
+    color:#555;
+    font-size:14px;
+    }
+  .fields_box{
+    width:100px;
+    background:#fafafa;
+    border:1px solid #ddd;
+    margin:10px auto;
+    padding:10px;
+    text-align:center;
+    }
+    .text{
+      border:2px solid #ddd;
+      padding:3px;
+      font-size:20px;
+      text-align:center;
+      }
+      
+ul.locations{
+  }
+  ul.locations li{
+    margin:5px 0;
+    }
+    ul.locations li a{
+      padding:4px;
+      }
+    ul.locations li span.current{
+      background:#648D39;
+      color:white;
+      padding:4px;
+      font-size:18px;
+      }
+
+/* LI Icons */
+
+.icon{
+  padding-left:25px;
+  background-repeat: no-repeat;
+  background-position: left center;
+  margin-bottom:5px;
+  }
+  .user{ background-image: url(../images/icons/user.png); }
+  .life-full{ background-image: url(../images/icons/life-full.png); }
+  .life-half{ background-image: url(../images/icons/life-half.png); }
+  .life-empty{ background-image: url(../images/icons/life-empty.png); }
+  .bookie-happy{ background-image:url(../images/icons/bookie-happy.png); }
+  .bookie-annoyed{ background-image:url(../images/icons/bookie-annoyed.png); }
+  .bookie-pissed{ background-image:url(../images/icons/bookie-pissed.png); }
+  .bookie-angry{ background-image:url(../images/icons/bookie-angry.png); }
+  .money{ background-image: url(../images/icons/money.png); }
+  .bank{ background-image: url(../images/icons/bank.png); }
+  .space{ background-image: url(../images/icons/space.png); }
+  .debt{ background-image: url(../images/icons/debt.png); }
+
+/* Components */
+
+#flash_notice,
+.success {
+	background: #e2fad6 url(../images/icons/accept.png) no-repeat 10px 10px;
+	border: 1px solid #91db6c;
+	padding: 10px;
+	padding-left: 35px;
+	color: #404040;
+	margin-bottom: 10px;
+	font-size:14px;
+	line-height:20px;
+}
+
+#flash_error,
+.error{
+	background: #fae1d6 url(../images/icons/exclamation.png) no-repeat 10px 10px;
+	border: 1px solid #f59b73;
+	padding: 10px;
+	padding-left: 35px;
+	color: #404040;
+	margin-bottom: 10px;
+	font-size:14px;
+	line-height:20px;
+}
+.help {
+	background: #eaf0f6 url(../images/icons/help.png) no-repeat 10px 10px;
+	border: 1px solid #bcc6d0;
+	padding: 10px;
+	padding-left: 35px;
+	color: #404040;
+	margin-bottom: 10px;
+	font-size:14px;
+	line-height:20px;
+}
+.tip {
+	background: #fafad6 url(../images/icons/wand.png) no-repeat 10px 10px;
+	border: 1px solid #f6d87d;
+	padding: 10px;
+	padding-left: 35px;
+	color: #404040;
+	margin-bottom: 10px;
+	font-size:14px;
+	line-height:20px;
+}
+
+/* jQuery Loading */
+
+.loading-masked{
+  overflow: hidden; 
+  }
+
+.loading-mask{
+  background:#000 !important;
+  opacity: 0.65 !important;
+  -moz-opacity: 0.65 ;
+  filter:alpha(opacity=65 0.65 );
+  }

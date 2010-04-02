@@ -1,0 +1,13 @@
+<% if flash[:error] %>
+  <div id='flash_error'>
+    <%= flash[:error] %>
+  </div>
+<% end %>
+
+<% if flash[:notice] %>
+  <div id='flash_notice'>
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<% flash.flag! if request.xhr? %>

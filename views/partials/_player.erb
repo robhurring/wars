@@ -1,0 +1,32 @@
+<% 
+  # Bookie Icon
+  threat_pct = ((@player.days_in_debt / Wars::Data::BookieTolerance.to_f) * 100).round
+  bookie_icon = \
+    case threat_pct
+      when 75..100 then 'bookie-angry'
+      when 50...75 then 'bookie-pissed'
+      when 25...50 then 'bookie-annoyed'
+      else 'bookie-happy'
+    end
+
+  # Life Icon
+  life_pct = ((@player.life / Wars::Player::MaxLife.to_f) * 100).round
+  life_icon = \
+    case life_pct
+      when 75..100 then 'life-full'
+      when 25...75 then 'life-half'
+      else 'life-empty'
+    end
+%>
+<div id='player' class='block'>
+  <h3>Day <%= @player.day %></h3>
+  <ul>
+    <li class='icon user'><tt><%= @player.name %></tt></li>
+    <li class='icon <%= life_icon %>'><tt><%= @player.life %></tt></li>
+    <li class='icon money'><tt><%= format_number @player.cash %></tt></li>
+    <li class='icon debt'><tt><%= format_number @player.debt %></tt></li>
+    <li class='icon <%= bookie_icon %>'>Bookie Happiness</li>
+    <li class='icon bank'><tt><%= format_number @player.bank %></tt></li>
+    <li class='icon space'><tt><%= @player.held %>/<%= @player.space %></tt></li>
+  </ul>
+</div>

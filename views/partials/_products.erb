@@ -1,0 +1,44 @@
+<div id='products' class='block'>
+  <h3>Products</h3>
+  <% Wars.products.select(&:event?).each do |product| %>
+    <div class='event'><%= product.event_message %></div>
+  <% end %>
+  <div class='clearfix'>
+    <div class='left product_table'>
+      <select id='buyable' size='10'  data="{products: true, buying: true}">
+        <% Wars::Product.all.each do |product| %>
+          <% 
+            quantity = (@player.cash / product.price).round
+            quantity = @player.space_available if quantity > @player.space_available
+          %>
+          <option value='<%= product.id %>' data="{name: '<%= product.name %>', price: '<%= format_number product.price %>', quantity: <%= quantity %>}">
+            <%= product.name %> - $<%= format_number product.price %>
+          </option>
+        <% end %>
+      </select>
+    </div>
+    <div class='right product_table'>
+      <select id='sellable' size='10' data="{products: true, buying: false}">
+        <% @player.products.each_with_index do |stash, index| %>
+          <%
+            product = Wars::Product.find(stash[:id]) 
+            profit = (product.price - stash[:price]).round
+          %>
+          <option value='<%= index %>' data="{name: '<%= product.name %>', price: '<%= format_number stash[:price] %>', quantity: <%= stash[:quantity] %>, sale_price: '<%= format_number product.price %>', profit: '<%= format_number profit %>', total: '<%= format_number (profit * stash[:quantity]) %>'}">
+              <%= stash[:quantity] %> &times; <%= product.name %> @ $<%= format_number stash[:price] %>
+          </option>
+        <% end %>
+      </select>
+    </div>
+  </div>
+
+  <%= partial :transaction %>
+  
+  <div id='stores'>
+    <% if stores = Wars::Store.in(@player.location_id) %>
+      <% stores.each do |store| %>
+        <p>You notice <strong><%= link_to store.name, '/store/%d' % store.id %></strong> here!</p>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class='clearfix'>
+  <%= partial :flash %>
+  <%= partial :locations %>
+  <% if @store %>
+    <% if @store.sells == :bank %>
+      <%= partial :bank %>
+    <% elsif @store.sells == :loans %>
+      <%= partial :loans %>
+    <% else %>
+      <%= partial :store %>
+    <% end %>
+  <% else %>
+    <%= partial :products %>
+  <% end %>
+  <%= partial :player %>
+</div>

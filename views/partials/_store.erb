@@ -1,0 +1,42 @@
+<div id='products' class='block'>
+  <h3><%= @store.name %></h3>
+  <div class='clearfix'>
+    <div class='left product_table'>
+      <select id='buyable' size='10'  data="{products: false, buying: true}">
+        <% @store.sells.each do |equipment| %>
+          <% 
+            carrying = @player.equipment.detect{ |e| e[:id] == equipment.id }
+            # HACK: this isn't the best place for this, but we don't want the user buying 50,000 med packs and wasting all
+            # their money. or do we not care?
+            allowed = \
+              if equipment.adds == :life && equipment.disposable?
+                ((Wars::Player::MaxLife - @player.life) / equipment.amount).ceil
+              else
+                if carrying
+                  (equipment.limit - carrying[:quantity])
+                else
+                  equipment.limit
+                end
+              end
+          %>
+          <option value='<%= equipment.id %>' data="{name: '<%= equipment.name %>', price: '<%= format_number equipment.price %>', limit: <%= equipment.limit %>, quantity: <%= allowed %>, adds: '<%= equipment.adds %>', amount: <%= equipment.amount %>}">
+            <%= equipment.name %> - $<%= format_number equipment.price %> (+<%= equipment.amount %> <%= equipment.adds %>)<%= ' [once]' if equipment.disposable? %>
+          </option>
+        <% end %>
+      </select>
+    </div>
+    <div class='right product_table'>
+      <select id='sellable' size='10' data="{products: false, buying: false}">
+        <% @player.equipment_map.each_with_index do |(equipment, quantity), index| %>
+          <option value='<%= index %>' data="{name: '<%= equipment.name %>', sale_price: '<%= format_number equipment.sale_price %>', quantity: <%= quantity %>}">
+            <%= quantity %> &times; <%= equipment.name %>
+          </option>
+        <% end %>
+      </select>
+    </div>
+  </div>
+
+  <%= partial :transaction %>
+
+  <p><%= link_to '&larr; Leave Store', '/location/%d' % @player.location_id %></p>
+</div>

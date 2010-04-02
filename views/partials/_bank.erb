@@ -1,0 +1,12 @@
+<div id='bank' class='block'>
+  <h3><%= @store.name %></h3>
+  <p style='text-align:center'>You have <strong>$<%= format_number @player.bank %></strong> in the bank.</p>
+  
+  <div class='fields_box'>
+    <input type="text" name="amount" value="<%= (@player.cash / 10).round %>" id="amount" maxlength='10' size='5' class='text' /><br/>
+    <input type="submit" name="deposit" value="Deposit" id="bank_deposit">
+    <input type="submit" name="withdrawl" value="Withdrawl" id="bank_withdrawl">
+  </div>
+
+  <p><%= link_to "&larr; Leave #{@store.name}", '/location/%d' % @player.location_id %></p>
+</div>

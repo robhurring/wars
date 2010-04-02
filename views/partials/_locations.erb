@@ -1,0 +1,18 @@
+<div id='locations' class='block'>
+  <h3>Locations</h3>
+  <ul class='locations'>
+    <% Wars::Location.all.each do |location| %>
+      <li>
+        <% unless @player.location_id == location.id %>
+          <%= link_to location.name, "/location/%d" % location.id %>
+        <% else %>
+          <span class='current'><%= location.name %></span>
+        <% end  %>
+      </li>
+    <% end %>
+  </ul>
+  <h3>Actions</h3>
+  <ul>
+    <li><%= link_to 'Logout', '/logout' %></li>
+  </ul>
+</div>
