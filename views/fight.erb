@@ -1,18 +1,4 @@
 <h2 align='center'>OMG! You're being attacked!</h2>
 <div id='arena'>
-  <div class='clearfix'>
-    <div class='fight_box left' style='border-right:2px solid #ddd'>
-      <h3><%= @player.name %></h3>
-      <p><%= @player.life %></p>
-    </div>
-    <div class='fight_box right'>
-      <h3><%= @opponent.name %></h3>
-      <p><%= @opponent.life %></p>
-    </div>
-  </div>
-  
-  <div id='fight_controls'>
-    <a href='/fight/attack' id='attack'>Attack!</a> _or_ 
-    <a href='/fight/run' id='run_away'>Run Away!</a>
-  </div>
+  <%= partial :arena, :fight => @fight %>
 </div>

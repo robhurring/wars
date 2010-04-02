@@ -17,6 +17,10 @@ $.wars = {
     loan: {
       repay: '/loan/repay/%(amount)d',
       borrow: '/loan/borrow/%(amount)d'
+    },
+    fight: {
+      attack: '/fight/attack',
+      run: '/fight/run'
     }
   },
   messages: {
@@ -109,8 +113,32 @@ $(function()
     restage(path);
     return false;
   });
-  
+
+// Fight
+
+  $('#attack').live('click', function()
+  {
+    fight(true);
+    return false;
+  });
+
+  $('#run_away').live('click', function()
+  {
+    fight(false);
+    return false;
+  });
+
 });
+
+function fight(attack)
+{
+  var path = $.wars.paths.fight[(attack ? 'attack' : 'run')];
+  
+  $('#arena').loading({align: 'center', mask: true, img: '/images/indicator.gif'});
+  $('#arena').load(path, (data || {}), function(){
+    $('#arena').loading();
+  });  
+}
 
 function restage(path, data)
 {

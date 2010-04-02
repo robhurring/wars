@@ -1,0 +1,22 @@
+<% 
+  player = @player
+  npc = fight.npc
+%>
+
+<%= partial :flash %>
+
+<div class='clearfix'>
+  <div class='fight_box left' style='border-right:2px solid #ddd'>
+    <h3><%= player.name %></h3>
+    <p><%= player.life %></p>
+  </div>
+  <div class='fight_box right'>
+    <h3><%= npc.name %></h3>
+    <p><%= npc.life %></p>
+  </div>
+</div>
+
+<div id='fight_controls'>
+  <a href='/fight/attack' id='attack'>Attack!</a> _or_ 
+  <a href='/fight/run' id='run_away'>Run Away!</a>
+</div>

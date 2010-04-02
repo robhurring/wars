@@ -62,16 +62,80 @@ class OfficeWars < Sinatra::Base
 # Fighting
 
   get '/fight' do
-    @fight = @player.fight
-    @opponent = @fight.opponent
-    
+    @fight = @player.fight    
     erb :fight
   end
   
-  post '/fight/flee' do
+  get '/fight/run' do
+    @fight = @player.fight
+    if @fight
+      npc = @fight.npc
+      npc.life -= @fight.npc_damage_taken
+      
+      if @player.run(npc)
+        flash[:notice] = "You got away!"
+        @fight.destroy
+        @player.reset_fight_counter!
+        redirect(url_for('/location/%d' % @player.location_id))
+      else
+        damage = npc.attack(@player)
+        @player.life -= damage
+        if @player.alive?
+          flash[:error] = "Can't escape!<br/><strong>#{npc.name}</strong> hits you for <strong>#{damage}</strong> damage!"
+        else
+          @player.tombstone = npc.name
+          is_game_over?
+        end
+      end
+      
+    else
+      flash[:error] = "You aren't in a fight!"
+      redirect(url_for('/location/%d' % @player.location_id))
+    end
+    
+    if request.xhr?
+      partial :arena, :fight => @fight
+    else
+      erb :fight
+    end
   end
   
-  post '/fight/attack' do
+  get '/fight/attack' do
+    @fight = @player.fight
+    
+    if @fight
+      npc = @fight.npc
+      npc.life -= @fight.npc_damage_taken
+      damage = @player.attack(npc)
+      
+      npc.life -= damage
+      if npc.alive?
+        @fight.update_attribute(:npc_damage_taken, @fight.npc_damage_taken + damage)
+        # NPC fight back
+        npc_damage = npc.attack(@player)
+        @player.life -= npc_damage
+        if @player.alive?
+          flash[:error] = "You whack <strong>#{npc.name}</strong> for <strong>#{damage}</strong> damage!<br/>#{npc.name} hits you for <strong>#{npc_damage}</strong> damage!"
+        else
+          @player.tombstone = npc.name
+          is_game_over?
+        end
+      else
+        @fight.destroy
+        @player.reset_fight_counter!
+        flash[:notice] = "You've defeated <strong>#{npc.name}</strong>!"
+        redirect(url_for('/location/%d' % @player.location_id))
+      end
+    else
+      flash[:error] = "You aren't in a fight!"
+      redirect(url_for('/location/%d' % @player.location_id))
+    end
+    
+    if request.xhr?
+      partial :arena, :fight => @fight
+    else
+      erb :fight
+    end
   end
 
 # Moving
