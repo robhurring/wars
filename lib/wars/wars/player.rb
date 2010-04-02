@@ -165,15 +165,15 @@ module Wars
       item = self.products[index]
       error = ''
       
-      if item        
+      if item
         price_difference = Wars::Product.find(item[:id]).price - item[:price]
         sale_price = (item[:price] * quantity)
         profit = (price_difference * quantity)
         
         quantity = item[:quantity] if quantity > item[:quantity]
+        
         unless quantity.zero?
-          item[:quantity] -= quantity
-          self.products.delete_at(index) if item[:quantity] <= 0
+          update_products(item.dup.merge(:quantity => quantity), false)
           self.cash += (sale_price + profit)
         else
           error = 'You can\'t sell 0 of something!'
@@ -184,7 +184,24 @@ module Wars
       
       errors.add(:products, error) unless error.blank?
     end
-  
+    
+    # update the products array or add a new product with the given product hash
+    def update_products(product_hash, adding = true)
+      existing = products.detect{ |p| p[:id] == product_hash[:id] && p[:price] == product_hash[:price] }
+      if adding
+        if existing
+          existing[:quantity] += product_hash[:quantity]
+        else
+          products << product_hash
+        end
+      else
+        existing_index = products.index(existing)
+        existing[:quantity] -= product_hash[:quantity]
+        self.products.delete_at(existing_index) if existing[:quantity] <= 0
+      end
+    end
+    
+    # do the error checking and cash math for purchasing a product
     def buy_product(product, quantity)
       error = ''
       item = products.detect{ |p| p[:id] == product.id && p[:price] == product.price }
@@ -194,11 +211,7 @@ module Wars
       
       if error.blank?
         unless quantity.zero?
-          unless item.blank?
-            item[:quantity] += quantity
-          else
-            self.products << product.to_h(:quantity => quantity)
-          end
+          update_products product.to_h(:quantity => quantity)          
           self.cash -= (product.price.to_i * quantity.to_i)
         else
           error = 'You want to buy 0 of something?'
@@ -217,8 +230,7 @@ module Wars
         quantity = item[:quantity] if quantity > item[:quantity]
         if equipment
           unless quantity.zero?
-            item[:quantity] -= quantity
-            self.equipment.delete_at(index) if item[:quantity] <= 0
+            update_equipment(item.dup.merge(:quantity => quantity), false)            
             self.cash += equipment.sale_price
           else
             error = 'You can\'t sell 0 of something!'
@@ -231,6 +243,24 @@ module Wars
       end
       
       errors.add(:equipment, error) unless error.blank?
+    end
+    
+    # update the products array or add a new product with the given product hash
+    def update_equipment(equipment_hash, adding = true)
+      existing = equipment.detect{ |p| p[:id] == equipment_hash[:id] }
+      Wars.log existing.inspect
+      
+      if adding
+        if existing
+          existing[:quantity] += equipment_hash[:quantity]
+        else
+          equipment << equipment_hash
+        end
+      else
+        existing_index = equipment.index(existing)
+        existing[:quantity] -= equipment_hash[:quantity]
+        self.equipment.delete_at(existing_index) if existing[:quantity] <= 0
+      end
     end
     
     def buy_equipment(equipment, quantity)
@@ -253,11 +283,7 @@ module Wars
               end
             end
           else
-            unless item.blank?
-              item[:quantity] += quantity
-            else
-              self.equipment << equipment.to_h(:quantity => quantity)
-            end
+            update_equipment(equipment.to_h(:quantity => quantity))
           end
           self.cash -= (equipment.price.to_i * quantity)
         else
