@@ -35,7 +35,7 @@ module Wars
     end
 
     def update_price!
-      @price = price_range.min + rand(price_range.max-price_range.min)
+      @price = price_range.min + rand(price_range.max - price_range.min)
       @event_message = nil
       
       srand
