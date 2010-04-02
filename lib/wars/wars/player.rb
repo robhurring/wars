@@ -68,7 +68,7 @@ module Wars
     end
   
     def space
-      @space ||= StartingSpace + equipment_space
+      @space ||= StartingSpace + equipment_total(:space)
     end
     
     def held
@@ -82,15 +82,13 @@ module Wars
     def space_available
       (space - held)
     end
-    
-    def equipment_space
-      @equipment_space ||= begin
-        equipment_map\
-          .select{ |e| e.first.adds == :space }\
-          .inject(0){ |t, e| t += (e.first.amount * e.last); t }
-      end
+
+    def equipment_total(adds)
+      equipment_map\
+        .select{ |e| e.first.adds == adds }\
+        .inject(0){ |t, e| t += (e.first.amount * e.last); t }
     end
-  
+    
     def alive?
       life > 0
     end
