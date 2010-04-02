@@ -12,7 +12,8 @@ module Wars
       Equipment.new(:id => 1, :name => 'Messenger Bag', :limit => 1, :price => 10_000, :adds => :space, :amount => 30),
       Equipment.new(:id => 2, :name => 'Briefcase', :limit => 2, :price => 10_000, :adds => :space, :amount => 15),
       Equipment.new(:id => 3, :name => 'Backpack', :limit => 1, :price => 50_000, :adds => :space, :amount => 50),
-      Equipment.new(:id => 4, :name => 'Medical Kit', :limit => 10, :price => 750, :adds => :life, :amount => 10, :disposable => true)
+      Equipment.new(:id => 4, :name => 'Medical Kit', :limit => 10, :price => 750, :adds => :life, :amount => 10, :disposable => true),
+      Equipment.new(:id => 5, :name => 'Keyboard', :limit => 1, :price => 20_000, :adds => :strength, :amount => 10),
     ]
         
     Products = [
@@ -38,6 +39,10 @@ module Wars
       Equipment.find(3)
     ]
 
+    SurvivalEquipment = [
+      Equipment.find(5)
+    ]
+
     HospitalInventory = [
       Equipment.find(4)
     ]
@@ -46,11 +51,13 @@ module Wars
       Store.new(:location_id => 1, :name => 'a shady ATM', :sells => :bank),
       Store.new(:location_id => 1, :name => 'Loans \'R Us', :sells => :loans),
       Store.new(:location_id => 2, :name => 'Gift Shop', :sells => GiftShopInventory),
-      Store.new(:location_id => 2, :name => 'Sensual Healing Hospice', :sells => HospitalInventory)
+      Store.new(:location_id => 2, :name => 'Sensual Healing Hospice', :sells => HospitalInventory),
+      Store.new(:location_id => 7, :name => 'Ajay\'s Survival Shop', :sells => SurvivalEquipment)
     ]
 
     Npcs = [
-      Npc.new(:id => 1, :name => 'Hall Monitor', :strength => 5, :defense => 0, :life => 35, :rewards => :cash, :quantity => (500..1000))
+      Npc.new(:id => 1, :name => 'Hall Monitor', :strength => 5, :defense => 0, :life => 35, :rewards => :cash, :quantity => (500..1000)),
+      Npc.new(:id => 2, :name => 'Annoying Co-Worker', :strength => 8, :defense => 0, :life => 80, :rewards => Proc.new{ Data.random_product }, :quantity => (1..5))
     ]
 
     Events = [
