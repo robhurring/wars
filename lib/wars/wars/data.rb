@@ -1,6 +1,7 @@
 module Wars
   module Data
     MaxLoan = 30_000
+    BookieName = 'Lumberg'
     BookieTolerance = 30 # days
     Encounters = true
     EncounterRate = 5 # days
@@ -67,14 +68,14 @@ module Wars
       }
      ),
      Event.new(
-      :description => "The bookie broke your legs! Better learn to pay up on time!",
+      :description => "#{BookieName} broke your legs! Better learn to pay up on time!",
       :condition => Proc.new{ |p| p.days_in_debt > Data::BookieTolerance && !p.debt.zero? },
       :action => Proc.new{
         if self.cash > self.debt
           self.cash -= self.debt
           self.life /= 2
         else
-          self.tombstone = "Pain sandwich courtesy of the Bookie"
+          self.tombstone = "Pain sandwich courtesy of #{BookieName}"
           self.life = 0
         end
       }

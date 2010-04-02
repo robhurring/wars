@@ -368,7 +368,7 @@ class OfficeWars < Sinatra::Base
     if error = @player.errors.on(:debt)
       flash[:error] = error
     else
-      flash[:notice] = "You re-paid $#{format_number amount} to the bookie!"
+      flash[:notice] = "You re-paid $#{format_number amount} to #{Wars::Data::BookieName}!"
     end
     
     if request.xhr?
@@ -389,7 +389,7 @@ class OfficeWars < Sinatra::Base
     if error = @player.errors.on(:debt)
       flash[:error] = error
     else
-      flash[:notice] = "You borrowed $#{format_number amount} to the bookie, better pay it back quick!"
+      flash[:notice] = "You borrowed $#{format_number amount} to #{Wars::Data::BookieName}, better pay it back quick!"
     end
     
     if request.xhr?
