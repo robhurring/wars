@@ -36,7 +36,7 @@ module Wars
     # this should be set when the player is killed for the HighScore.reason
     attr_accessor :tombstone
 
-    has_one :fight
+    has_one :fight, :dependent => :destroy
 
     validates_uniqueness_of :name
     validates_presence_of :password
