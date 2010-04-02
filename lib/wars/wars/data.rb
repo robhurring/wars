@@ -74,7 +74,7 @@ module Wars
           self.cash -= self.debt
           self.life /= 2
         else
-          self.tombstone = "Pain sandwich via the Bookie."
+          self.tombstone = "Pain sandwich courtesy of the Bookie"
           self.life = 0
         end
       }
