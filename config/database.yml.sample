@@ -1,0 +1,14 @@
+development:
+  adapter: mysql
+  host: localhost
+  username: root
+  password: 
+  pool: 5
+  database: wars
+production:
+  adapter: mysql
+  host: localhost
+  username: root
+  password: 
+  pool: 5
+  database: wars

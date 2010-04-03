@@ -8,16 +8,9 @@ require 'active_record'
 require 'rack-flash'
 require 'lib/helpers'
 
-ActiveRecord::Base.configurations = {
-  'development' => {
-    'adapter' => 'mysql',
-    'host' => 'localhost',
-    'user' => 'root', 
-    'pass' => '',
-    'database' => 'wars'
-  }
-}
+DatabaseAuth = YAML::load(File.read(File.join(File.dirname(__FILE__), '..', 'config', 'database.yml')))
 
+ActiveRecord::Base.configurations = DatabaseAuth
 ActiveRecord::Base.logger = Logger.new(File.join('log', 'database.log'))
 ActiveRecord::Base.establish_connection ENV['RACK_ENV']
 
