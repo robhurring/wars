@@ -1,7 +1,7 @@
 Features:
   * Variable NPCs based on a +:condition+ so stronger players can fight stronger NPC's that reward better swag
   * list equipment on the player sidebar
-  * special equipment to permanently alter health/strength/defense/etc. that are fight rewards 
+  * special equipment to alter space/health/strength/defense/etc. that are fight rewards 
 
 Fixes:
   * encounters are popping up during ajaxing, which it shouldn't. fix why it comes up sometimes with the double-header
