@@ -1,3 +1,5 @@
 I will add a better README in the future. This is still under a heckuvalotta development. It is basically a generic dope wars engine built on top of Sinatra. I'm using it for an OfficeWars project, but it is easily customizable so it can fit any theme (see lib/wars/data.rb to see how customizable).
 
-If you clone it, and +rake db:migrate+ you can play around with it and see what it is. Until I get a chance to update this, it is what it is :)
+If you clone it, and +rake db:migrate+ you can play around with it and see what it is. 
+
+I threw this up on Heroku if you wanted a demo: http://officewars.heroku.com - it is crude still, but should be working for the most part :)
