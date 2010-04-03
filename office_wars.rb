@@ -5,7 +5,8 @@ class OfficeWars < Sinatra::Base
 
   enable :sessions, :cookies, :logging
   use Rack::Flash, :sweep => true, :accessorize => [:notice, :error]
-
+  use Rack::Static, :urls => ['/css', '/images', '/js'], :root => 'public'    
+  
   configure do
     Wars.logger = Log
   end
