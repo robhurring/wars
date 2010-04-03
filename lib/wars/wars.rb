@@ -105,7 +105,7 @@ module Wars
   end
   
   def self.find_player
-    Player.first(session[:player_id]) if session[:player_id]
+    Player.find(session[:player_id]) if session[:player_id]
   end
   
   def self.logout
