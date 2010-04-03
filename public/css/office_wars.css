@@ -178,6 +178,15 @@ ul.locations{
     margin-top:30px;
     text-align:center;
     }
+    
+#footer{
+  margin-top:40px;
+  text-align:center;
+  color:#888;
+  }
+  #footer a{
+    color:#555;
+    }
 
 /* LI Icons */
 
