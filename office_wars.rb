@@ -177,7 +177,7 @@ class OfficeWars < Sinatra::Base
       flash[:notice] = "Invalid Move!" if new_location.blank?
     end
     
-    erb :game
+    erb :stage
   end
   
   get '/store/:id' do |id|
@@ -189,7 +189,7 @@ class OfficeWars < Sinatra::Base
       return redirect(url_for("/location/%d" % @player.location_id))
     end
     
-    erb :game
+    erb :stage
   end
 
 # Buying / Selling Products
@@ -347,7 +347,7 @@ class OfficeWars < Sinatra::Base
     if request.xhr?
       partial :stage
     else
-      erb :game
+      erb :stage
     end
   end
   
@@ -368,7 +368,7 @@ class OfficeWars < Sinatra::Base
     if request.xhr?
       partial :stage
     else
-      erb :game
+      erb :stage
     end
   end
 
@@ -392,7 +392,7 @@ class OfficeWars < Sinatra::Base
     if request.xhr?
       partial :stage
     else
-      erb :game
+      erb :stage
     end
   end
   
@@ -413,7 +413,7 @@ class OfficeWars < Sinatra::Base
     if request.xhr?
       partial :stage
     else
-      erb :game
+      erb :stage
     end
   end
 
