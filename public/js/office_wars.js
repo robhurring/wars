@@ -1,4 +1,5 @@
 $.wars = {
+  debug: true,
   quick_transactions: true,
   keyboard_shortcuts: true,
   paths: {
@@ -165,7 +166,7 @@ function preform_transaction()
     var is_product = ($('#transaction_is_product').val() == 1);
   }
   
-  console.log({id: id, quantity: quantity, buying: buying, is_product: is_product});
+  debug({id: id, quantity: quantity, buying: buying, is_product: is_product});
   
   if(parseInt(quantity) <= 0 || (buying && !id))
     return false;
@@ -206,4 +207,10 @@ function setup_transaction(select)
     $('#transaction_fields').hide();  
   else
     $('#transaction_fields').show();
+}
+
+function debug(msg)
+{
+  if(console != undefined && $.wars.debug)
+    console.log(msg);
 }
