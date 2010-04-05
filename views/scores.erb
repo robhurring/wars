@@ -1,2 +1,24 @@
 <%= partial :flash %>
-<%= debug Wars::HighScore.all %>
+<h2>High Scores</h2>
+<p><%= link_to 'Start a new game', '/login' %></p>
+
+<table id='high_scores' border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <th>#</th>
+    <th>Player Name</th>
+    <th>Score</th>
+    <th>Day</th>
+    <th>Death By</th>
+    <th>Time of Death</th>
+  </tr>
+  <% @scores.each_with_index do |score, index| %>
+  <tr>
+    <td><%= '%02d' % (index + 1) %></td>
+    <td><%= score.name %></td>
+    <td><%= format_number score.score %></td>
+    <td><%= score.day %></td>
+    <td><%= score.reason %></td>
+    <td><%= score.created_at.strftime '%m/%d/%Y' %></td>
+  </tr>
+  <% end %>
+</table>

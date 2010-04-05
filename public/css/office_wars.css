@@ -179,6 +179,21 @@ ul.locations{
     text-align:center;
     }
     
+#high_scores{
+  margin-top:40px;
+  width:100%;
+  }
+  #high_scores th{
+    font-size:12px;
+    border-bottom:2px solid #ddd;
+    padding:5px;
+    text-align:left;
+    }
+  #high_scores td{
+    padding:5px;
+    color:#444;
+    }
+    
 #footer{
   margin-top:40px;
   text-align:center;
