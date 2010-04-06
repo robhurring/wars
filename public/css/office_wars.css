@@ -248,6 +248,8 @@ ul.locations{
   .bank{ background-image: url(../images/icons/bank.png); }
   .space{ background-image: url(../images/icons/space.png); }
   .debt{ background-image: url(../images/icons/debt.png); }
+  .defense{ background-image: url(../images/icons/defense.png); }
+  .strength{ background-image: url(../images/icons/strength.png); }
 
 /* Components */
 

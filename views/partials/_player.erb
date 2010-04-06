@@ -29,4 +29,10 @@
     <li class='icon bank'><tt><%= format_number @player.bank %></tt></li>
     <li class='icon space'><tt><%= @player.held %>/<%= @player.space %></tt></li>
   </ul>
+  <h3>Equipment</h3>
+  <ul>
+    <% @player.equipment_map.sort_by{ |e| e.first.name }.each do |(equipment, quantity)| %>
+      <li class='icon <%= equipment.adds %>'><small><%= equipment.name %> (&times;<%= quantity %>)</small></li>
+    <% end %>
+  </ul>
 </div>
