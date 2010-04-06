@@ -61,6 +61,10 @@ module Wars
     def defense
       StartingDefense + equipment_total(:defense)
     end
+    
+    def max_life
+      MaxLife + equipment_total(:life)
+    end
   
     def score
       total_products = products.inject(0){ |t, p| t + (p[:price] * p[:quantity]) }
@@ -257,7 +261,7 @@ module Wars
           case eq.adds
           when :life
             self.life += amount
-            self.life = MaxLife if self.life > MaxLife
+            self.life = max_life if self.life > max_life
           end
         end
         
@@ -294,7 +298,6 @@ module Wars
       
       errors.add(:equipment, error) unless error.blank?
     end
-    
     
   end
 end

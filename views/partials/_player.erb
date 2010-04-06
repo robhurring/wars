@@ -10,7 +10,7 @@
     end
 
   # Life Icon
-  life_pct = ((@player.life / Wars::Player::MaxLife.to_f) * 100).round
+  life_pct = ((@player.life / @player.max_life.to_f) * 100).round
   life_icon = \
     case life_pct
       when 75..100 then 'life-full'
@@ -22,12 +22,13 @@
   <h3>Day <%= @player.day %></h3>
   <ul>
     <li class='icon user'><tt><%= @player.name %></tt></li>
-    <li class='icon <%= life_icon %>'><tt><%= @player.life %></tt></li>
+    <li class='icon <%= life_icon %>'><tt><%= @player.life %>/<%= @player.max_life %></tt></li>
     <li class='icon money'><tt><%= format_number @player.cash %></tt></li>
     <li class='icon debt'><tt><%= format_number @player.debt %></tt></li>
     <li class='icon <%= bookie_icon %>'><small><%= Wars::Data::BookieName %>'s Happiness</small></li>
     <li class='icon bank'><tt><%= format_number @player.bank %></tt></li>
     <li class='icon space'><tt><%= @player.held %>/<%= @player.space %></tt></li>
+    <li class='icon shield'><%= @player.strength %>/<%= @player.defense %></li>
   </ul>
   <h3>Equipment</h3>
   <ul>

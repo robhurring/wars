@@ -10,7 +10,7 @@
             # their money. or do we not care?
             allowed = \
               if equipment.adds == :life && equipment.disposable?
-                ((Wars::Player::MaxLife - @player.life) / equipment.amount).ceil
+                ((@player.max_life - (@player.life - (@player.life % equipment.amount))) / equipment.amount).ceil
               else
                 if carrying
                   (equipment.limit - carrying[:quantity])
