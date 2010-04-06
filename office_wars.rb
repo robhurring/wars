@@ -45,12 +45,13 @@ class OfficeWars < Sinatra::Base
     new_user = params[:new_user]
     
     if Wars.login(name, pass, new_user)
+      flash[:notice] = "Welcome back, #{Wars.player.name}!"
       redirect(url_for('/location/%d' % Wars.player.location_id))
     else
       if Wars.player
-        @errors = Wars.player.errors.full_messages.join('<br/>')
+        flash[:error] = Wars.player.errors.full_messages.join('<br/>')
       else
-        @errors = 'Invalid name and/or password.'
+        flash[:error] = 'Invalid name and/or password.'
       end
       erb :login
     end
