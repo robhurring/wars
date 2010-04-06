@@ -7,7 +7,7 @@ module Wars
     MaxLife = 100
     StartingSpace = 10
     StartingDefense = 10
-    StartingStrength = 10
+    StartingStrength = 25
     StartingAttributes = {
       :life => MaxLife,
       :cash => 5_000,
