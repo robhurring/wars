@@ -12,10 +12,14 @@ module Wars
       Equipment.new(:id => 1, :name => 'Messenger Bag', :limit => 1, :price => 10_000, :adds => :space, :amount => 30),
       Equipment.new(:id => 2, :name => 'Briefcase', :limit => 2, :price => 10_000, :adds => :space, :amount => 15),
       Equipment.new(:id => 3, :name => 'Backpack', :limit => 1, :price => 50_000, :adds => :space, :amount => 50),
-      Equipment.new(:id => 4, :name => 'Medical Kit', :limit => 10, :price => 750, :adds => :life, :amount => 10, :disposable => true),
-      Equipment.new(:id => 5, :name => 'IBM Keyboard', :limit => 1, :price => 20_000, :adds => :strength, :amount => 10),
+      Equipment.new(:id => 4, :name => 'Medical Kit', :limit => 999, :price => 750, :adds => :life, :amount => 10, :disposable => true),
+      Equipment.new(:id => 5, :name => 'IBM Keyboard', :limit => 1, :price => 20_000, :adds => :strength, :amount => 25),
       Equipment.new(:id => 6, :name => 'Mousing Star', :limit => 1, :price => 100_000, :adds => :strength, :amount => 50),
-      Equipment.new(:id => 7, :name => 'Peacoat', :limit => 1, :price => 25_000, :adds => :defense, :amount => 10)
+      Equipment.new(:id => 7, :name => 'Peacoat', :limit => 1, :price => 25_000, :adds => :defense, :amount => 25),
+      # Non-Shop Special Rewards
+      Equipment.new(:id => 100, :name => 'Orb of Life', :limit => 1, :price => 0, :adds => :life, :amount => 100),
+      Equipment.new(:id => 101, :name => 'Thor\'s Hammer', :limit => 1, :price => 0, :adds => :strength, :amount => 50),
+      Equipment.new(:id => 102, :name => 'Mustard Shirt', :limit => 1, :price => 0, :adds => :defense, :amount => 50)
     ]
         
     Products = [
