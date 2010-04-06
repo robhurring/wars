@@ -248,13 +248,26 @@ module Wars
     # update the products array or add a new product with the given product hash
     def update_equipment(equipment_hash, adding = true)
       existing = equipment.detect{ |p| p[:id] == equipment_hash[:id] }
-      Wars.log existing.inspect
       
       if adding
-        if existing
-          existing[:quantity] += equipment_hash[:quantity]
-        else
-          equipment << equipment_hash
+        eq = Equipment.find(equipment_hash[:id])
+        # Apply equipment benefits
+        equipment_hash[:quantity].times do 
+          amount = eq.amount
+          case eq.adds
+          when :life
+            self.life += amount
+            self.life = MaxLife if self.life > MaxLife
+          end
+        end
+        
+        # Add equipment to our inventory
+        unless eq.disposable?
+          if existing
+            existing[:quantity] += equipment_hash[:quantity]
+          else
+            equipment << equipment_hash
+          end
         end
       else
         existing_index = equipment.index(existing)
@@ -272,19 +285,7 @@ module Wars
       
       if error.blank?
         unless quantity.zero?
-          # apply equipment now, instead of storing it in +equipment+ array
-          if equipment.disposable?
-            quantity.times do 
-              amount = equipment.amount
-              case equipment.adds
-              when :life
-                self.life += amount
-                self.life = MaxLife if self.life > MaxLife
-              end
-            end
-          else
-            update_equipment(equipment.to_h(:quantity => quantity))
-          end
+          update_equipment(equipment.to_h(:quantity => quantity))
           self.cash -= (equipment.price.to_i * quantity)
         else
           error = 'You want to buy 0 of something? Not very smart.'
