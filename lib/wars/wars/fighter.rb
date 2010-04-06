@@ -1,6 +1,7 @@
 module Wars
   # some methods for fighting / etc.
   module Fighter
+    DamageVariable = 20
     EscapeRate = 3
     
     # Override these
@@ -10,7 +11,14 @@ module Wars
     # returns the damage to opponent
     # TODO: do some calculations for damage and take into account defense, etc
     def attack(opponent)
-      strength + rand(strength * 0.25)
+      amplifier = (rand * DamageVariable).ceil
+      dmg = 0
+      if amplifier + strength > opponent.defense || amplifier == DamageVariable
+        dmg = strength * (rand + 0.5)
+        dmg -= opponent.defense
+        dmg = 1 if dmg < 0
+      end
+      dmg.ceil
     end
     
     # returns true/false if you got away
