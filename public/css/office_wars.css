@@ -237,7 +237,8 @@ ul.locations{
   margin-bottom:5px;
   }
   .user{ background-image: url(../images/icons/user.png); }
-  .life-full{ background-image: url(../images/icons/life-full.png); }
+  .life-full,
+  .life{ background-image: url(../images/icons/life-full.png); }
   .life-half{ background-image: url(../images/icons/life-half.png); }
   .life-empty{ background-image: url(../images/icons/life-empty.png); }
   .bookie-happy{ background-image:url(../images/icons/bookie-happy.png); }
