@@ -83,12 +83,18 @@ module Wars
     Wars.log "Running fight events"
     if Data::Encounters
       if player.days_without_incident > Data::EncounterRate
+        # eligable NPCs -- ones that meet our conditions, all by default
+        eligible_npcs = Npc.all.select{ |npc| npc.eligible?(player) }
+        return if eligible_npcs.empty?
+        
         fight = Fight.new(:player => self.player)
-        npc = Npc.all[rand(Npc.all.size)]
+        npc = eligible_npcs[rand(eligible_npcs.size)]
+
         # HACK: this sets the npc's life back to the original life. 
         npc.reset!
         fight.npc_id = npc.id
         fight.save
+        Wars.log "Engaged by #{npc.name}"
       end
     end
   end
