@@ -21,13 +21,19 @@ module Wars
     attr_accessor :life
     
     def initialize(attributes = {})
-      @id = attributes[:id] || (self.index += 1)
+      self.index += 1
+      @id = attributes[:id] || self.index
       @name = attributes[:name] || 'Mystery Man'
       @strength = attributes[:strength] || DefaultStrength
       @defense = attributes[:defense] || DefaultDefense
       @life = @base_life = attributes[:life] || DefaultLife
-      @rewards = attributes[:rewards] || :cash # can also be a Product | Equipment
-      @quantity = attributes[:quantity] || 1
+      @rewards = attributes[:rewards]
+      @condition = attributes[:condition] || nil
+    end
+
+    def eligible?(player)
+      return true if @condition.blank?
+      @condition.call(player)
     end
 
     # HACK: when class caching is on the NPC's health is still set to negatives from the
@@ -40,13 +46,9 @@ module Wars
       life > 0
     end
     
-    def quantity
-      @quantity.is_a?(Range) ? (@quantity.min + rand(@quantity.max - @quantity.min)) : @quantity
-    end
-    
-    # returns [type, quantity]
-    def reward      
-      [(@rewards.respond_to?(:call) ? @rewards.call : @rewards), quantity]
+    # returns [type, quantity] where type can be a +Product+, +Equipment+ or +:cash+
+    def reward(player = nil)
+      @rewards.call(player)
     end
   end
 end

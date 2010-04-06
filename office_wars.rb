@@ -127,12 +127,12 @@ class OfficeWars < Sinatra::Base
       else
         @fight.destroy
         @player.reset_fight_counter!
-        reward = npc.reward
+        reward = npc.reward(@player)
         reward_msg = ''
 
         if reward.first == :cash
           @player.cash += reward.last
-          reward_msg = "<br/>You took $#{reward.last}."
+          reward_msg = "<br/>You took $#{format_number reward.last}."
         elsif reward.first.is_a?(Wars::Product)
           @player.update_products(reward.first.to_h(:quantity => reward.last))
           reward_msg = "<br/>You took #{reward.last} &times; #{reward.first.name}."

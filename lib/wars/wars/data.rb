@@ -60,9 +60,64 @@ module Wars
     ]
 
     Npcs = [
-      Npc.new(:id => 1, :name => 'Hall Monitor', :strength => 5, :defense => 0, :life => 35, :rewards => :cash, :quantity => (500..1000)),
-      Npc.new(:id => 2, :name => 'Annoying Co-Worker', :strength => 8, :defense => 0, :life => 80, :rewards => Proc.new{ Data.random_product }, :quantity => (1..5))
+      Npc.new(
+        :id => 1, 
+        :name => 'Hall Monitor', 
+        :strength => 20, 
+        :defense => 0, 
+        :life => 35, 
+        :rewards => Proc.new{ [:cash, (500..1_000).rand] },
+        :condition => Proc.new{ |p| p.strength < 50 }
+      ),
+      Npc.new(
+        :id => 2, 
+        :name => 'Annoying Co-Worker', 
+        :strength => 35, 
+        :defense => 0,
+        :life => 80, 
+        :rewards => Proc.new{ [Data.random_product, (1..5).rand] },
+        :condition => Proc.new{ |p| p.strength < 75 }
+      ),      
+      # Bosses
+      Npc.new(
+        :id => 100,
+        :name => 'Ajay',
+        :strength => 65,
+        :defense => 20,
+        :life => 100,
+        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(100), (5_000..10_000)) },
+        :condition => Proc.new{ |p| p.strength >= 35 }
+      ),
+      Npc.new(
+        :id => 101,
+        :name => 'Lumberg',
+        :strength => 80,
+        :defense => 30,
+        :life => 200,
+        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(101), (10_000..30_000)) },
+        :condition => Proc.new{ |p| p.strength >= 50 && rand(2) == 0 }
+      ),
+      Npc.new(
+        :id => 102,
+        :name => 'Dwight Shrute',
+        :strength => 80,
+        :defense => 100,
+        :life => 350,
+        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(102), (50_000..100_000)) },
+        :condition => Proc.new{ |p| p.strength >= 100 && rand(2) == 0 }
+      )
     ]
+    
+    # Some random NPCs
+    ['Michael Scott', 'Pam', 'Jim', 'Creed'].each do |npc_name|
+      Npcs << Npc.new(
+        :name => npc_name,
+        :strength => (10..40).rand,
+        :defense => (0..15).rand,
+        :life => (85..125).rand,
+        :rewards => Proc.new{ rand(2) == 0 ? [Data.random_product, (1..5).rand] : [:cash, (500..2_000).rand] }
+      )
+    end
 
     Events = [
      Event.new(
@@ -104,5 +159,21 @@ module Wars
       product.price = 0 # if it was used in an event, then free is the key
       product
     end
+    
+    # Some random helpers for the data file
+  
+    def self.boss_reward(player, equipment, cash_range, quantity = 1, odds = 2)
+      cash_prize = [:cash, cash_range.rand]
+      if player.equipment.any?{ |e| e[:id] == equipment.id}
+        cash_prize
+      else
+        if rand(odds).floor == 0
+          [equipment, 1]
+        else
+          cash_prize
+        end
+      end
+    end
+    
   end
 end
