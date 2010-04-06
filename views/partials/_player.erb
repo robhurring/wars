@@ -19,7 +19,7 @@
     end
 %>
 <div id='player' class='block'>
-  <h3>Day <%= @player.day %></h3>
+  <h3>Day <%= @player.day %><%= '/%d' % Wars::Data::MaxDays unless Wars::Data::MaxDays.zero? %></h3>
   <ul>
     <li class='icon user'><tt><%= @player.name %></tt></li>
     <li class='icon <%= life_icon %>'><tt><%= @player.life %>/<%= @player.max_life %></tt></li>
