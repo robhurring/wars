@@ -61,6 +61,13 @@ class OfficeWars < Sinatra::Base
     Wars.logout
     redirect(url_for('/'))
   end
+  
+  get '/quit' do
+    @player.tombstone = 'Quit the Office :('
+    Wars.game_over!
+    flash[:error] = "You've quit the office. Come back again sometime and see the office is better :)"
+    redirect(url_for('/scores'))
+  end
 
 # Fighting
 
