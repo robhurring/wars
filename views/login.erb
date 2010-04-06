@@ -1,19 +1,23 @@
 <% if @errors %>
   <%= debug @errors %>
 <% end %>
-<form action='<%= url_for '/login' %>' method='post'>
-  <p>
-    <label for="name">Name</label>
-    <input type="text" name="name" value="<%= @player.try(:name) %>" id="name" />
-  </p>
-  <p>
-    <label for="password">Password</label>
-    <input type="password" name="password" value="" id="password">    
-  </p>
-  <p>
-    <input type='checkbox' name='new_user'> New User?
-  </p>
-  <p>
-    <input type="submit" value="Play &rarr;">
-  </p>
-</form>
+<h2>Login or Create an Account</h2>
+
+<div id='login_form'>
+  <form action='<%= url_for '/login' %>' method='post'>
+    <p>
+      <label for="name">Name</label>
+      <input type="text" name="name" value="<%= @player.try(:name) %>" id="name" class='text' />
+    </p>
+    <p>
+      <label for="password">Password</label>
+      <input type="password" name="password" value="" id="password" class='text'>
+    </p>
+    <p id='new_user_box'>
+      <input type='checkbox' name='new_user' id='new_user'> <label for='new_user' style='float:none'>Check this if you are creating an account.</label>
+    </p>
+    <p>
+      <input type="submit" value="Start Playing &rarr;">
+    </p>
+  </form>
+</div>

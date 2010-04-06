@@ -85,6 +85,31 @@ ul{
       color:#648D39;
       }
 
+#login_form{
+  width:50%;
+  border:2px solid #ddd;
+  background:#fafafa;
+  padding:20px;
+  margin:20px 0;
+  }
+  #login_form p{
+    }
+    #login_form p label{
+      float:left;
+      width:20%;
+      font-weight:bold;
+      }
+    #login_form .text{
+      width:98%;
+      line-height:24px;
+      text-align:left;
+      }
+    #login_form p#new_user_box{
+      background:#ccc;
+      padding:10px;
+      border:1px solid #ddd;
+      }
+  
 .block{
   border:1px solid #ccc;
   padding:0 10px;
