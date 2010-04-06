@@ -422,9 +422,12 @@ private
     unless Wars.event.blank?
       flash[:notice] = Wars.event.description
       is_game_over?
-    end 
-
-    is_fighting? && redirect(url_for('/fight')) unless request.url.include?('/fight')
+    end
+     
+    if is_fighting? && !request.path.include?('fight')
+      redirect(url_for('/fight'))
+    end
+    
     is_game_over?
   end
 
@@ -433,10 +436,23 @@ private
   end
 
   def is_game_over?
-    if @player && !@player.alive?
+    return unless @player
+    is_game_over = false
+    
+    if @player.day > Wars::Data::MaxDays && !Wars::Data::MaxDays.zero?
+      is_game_over = true
+      flash[:notice] = "Congratulations, you survived! You can now retire!"
+      @player.tombstone = 'Peacefully retired.'
+    end
+    
+    unless @player.alive?
+      flash[:error] = "You are dead! Game Over!"
+      is_game_over = true
+    end
+    
+    if is_game_over
       @player = nil
       Wars.game_over!
-      flash[:error] = "Game Over!"
       redirect(url_for('/scores'))
     end
   end
