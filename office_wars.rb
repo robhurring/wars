@@ -12,10 +12,10 @@ class OfficeWars < Sinatra::Base
   end
 
   before do
+    Log.info("@: %s" % request.path.inspect)
     Wars.initialize!(session)
     setup_player || redirect(url_for '/login') unless request.url.include?('/login') || request.url.include?('/scores')
-    is_fighting? && redirect(url_for('/fight')) unless request.url.include?('/fight')
-    is_game_over?
+    check_game_conditions
   end
 
   after do
@@ -169,10 +169,7 @@ class OfficeWars < Sinatra::Base
       @player.live_another_day!
       Wars.update_prices!
       Wars.run_events!
-      unless Wars.event.blank?
-        flash[:notice] = Wars.event.description
-        is_game_over?
-      end
+      check_game_conditions
     else
       flash[:notice] = "Invalid Move!" if new_location.blank?
     end
@@ -420,6 +417,16 @@ class OfficeWars < Sinatra::Base
 # Support
 
 private
+
+  def check_game_conditions
+    unless Wars.event.blank?
+      flash[:notice] = Wars.event.description
+      is_game_over?
+    end 
+
+    is_fighting? && redirect(url_for('/fight')) unless request.url.include?('/fight')
+    is_game_over?
+  end
 
   def is_fighting?
     @player && !@player.fight.blank?
