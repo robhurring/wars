@@ -211,6 +211,6 @@ function setup_transaction(select)
 
 function debug(msg)
 {
-  if(console != undefined && $.wars.debug)
+  if(typeof(console) !== 'undefined' && console != null && $.wars.debug)
     console.log(msg);
 }
