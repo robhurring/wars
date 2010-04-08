@@ -45,12 +45,13 @@ class OfficeWars < Sinatra::Base
     new_user = params[:new_user]
     
     if Wars.login(name, pass, new_user)
+      flash[:notice] = "Welcome back, #{Wars.player.name}!"
       redirect(url_for('/location/%d' % Wars.player.location_id))
     else
       if Wars.player
-        @errors = Wars.player.errors.full_messages.join('<br/>')
+        flash[:error] = Wars.player.errors.full_messages.join('<br/>')
       else
-        @errors = 'Invalid name and/or password.'
+        flash[:error] = 'Invalid name and/or password.'
       end
       erb :login
     end
@@ -59,6 +60,13 @@ class OfficeWars < Sinatra::Base
   get '/logout' do
     Wars.logout
     redirect(url_for('/'))
+  end
+  
+  get '/quit' do
+    @player.tombstone = 'Quit the Office :('
+    Wars.game_over!
+    flash[:error] = "You've quit the office. Come back again sometime and see the office is better :)"
+    redirect(url_for('/scores'))
   end
 
 # Fighting
@@ -422,9 +430,12 @@ private
     unless Wars.event.blank?
       flash[:notice] = Wars.event.description
       is_game_over?
-    end 
-
-    is_fighting? && redirect(url_for('/fight')) unless request.url.include?('/fight')
+    end
+     
+    if is_fighting? && !request.path.include?('fight')
+      redirect(url_for('/fight'))
+    end
+    
     is_game_over?
   end
 
@@ -433,10 +444,23 @@ private
   end
 
   def is_game_over?
-    if @player && !@player.alive?
+    return unless @player
+    is_game_over = false
+    
+    if @player.day > Wars::Data::MaxDays && !Wars::Data::MaxDays.zero?
+      is_game_over = true
+      flash[:notice] = "Congratulations, you survived! You can now retire!"
+      @player.tombstone = 'Peacefully retired.'
+    end
+    
+    unless @player.alive?
+      flash[:error] = "You are dead! Game Over!"
+      is_game_over = true
+    end
+    
+    if is_game_over
       @player = nil
       Wars.game_over!
-      flash[:error] = "Game Over!"
       redirect(url_for('/scores'))
     end
   end

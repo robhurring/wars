@@ -128,6 +128,14 @@ $(function()
     fight(false);
     return false;
   });
+  
+// Destructive Links
+
+  $('.destructive').click(function()
+  {
+    var message = $(this).metadata().message || 'Are you sure?';
+    return confirm(message);
+  });
 
 });
 
