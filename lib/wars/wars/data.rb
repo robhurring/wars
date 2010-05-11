@@ -120,7 +120,7 @@ module Wars
     ]
     
     # Normal random NPCs
-    ['Milton', 'Ajay', 'Bob #1', 'Bob #2', 'Michael', 'Pam', 'Creed', 'Andy', 'Phillis', 'Toby'].each do |npc_name|
+    ['Ricky Roma', 'Shelley Levene', 'John Williamson', 'Buddy Ackerman', 'Dawn Lockard', 'Guy', 'Milton', 'Ajay', 'Bob #1', 'Bob #2', 'Michael', 'Pam', 'Creed', 'Andy', 'Phillis', 'Toby'].each do |npc_name|
       Npcs << Npc.new(
         :name => npc_name,
         :strength => (10..40).rand,
