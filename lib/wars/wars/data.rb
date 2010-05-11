@@ -22,7 +22,8 @@ module Wars
       Equipment.new(:id => 100, :name => 'Coffee Mug', :limit => 1, :price => 0, :adds => :life, :amount => 100),
       Equipment.new(:id => 101, :name => 'Ron\'s Bat', :limit => 1, :price => 0, :adds => :strength, :amount => 50),
       Equipment.new(:id => 102, :name => 'Mustard Colored Shirt', :limit => 1, :price => 0, :adds => :defense, :amount => 50),
-      Equipment.new(:id => 103, :name => 'Jim\'s Messenger Bag', :limit => 1, :price => 0, :adds => :space, :amount => 80)
+      Equipment.new(:id => 103, :name => 'Jim\'s Messenger Bag', :limit => 1, :price => 0, :adds => :space, :amount => 80),
+      Equipment.new(:id => 104, :name => 'Blake\'s Brass Balls', :limit => 1, :price => 0, :adds => :space, :amount => 300)
     ]
         
     Products = [
@@ -106,6 +107,15 @@ module Wars
         :life => 350,
         :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(102), (50_000..100_000)) },
         :condition => Proc.new{ |p| p.strength >= 100 && rand(2) == 0 }
+      ),
+      Npc.new(
+        :id => 104,
+        :name => 'Blake',
+        :strength => 80,
+        :defense => 100,
+        :life => 500,
+        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(104), (200_000..500_000)) },
+        :condition => Proc.new{ |p| p.strength >= 150 && p.defense >= 100 && rand(2) == 0 }
       )
     ]
     
