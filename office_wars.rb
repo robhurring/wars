@@ -431,7 +431,7 @@ class OfficeWars < Sinatra::Base
       error = "You can't afford to post a bulletin! You need $#{format_number Wars::Data::BulletinCost}"
     else
       bulletin = Wars::Bulletin.new(
-        :player_id => @player.id, 
+        :name => @player.name,
         :message => params[:message],
         :ip => request.ip,
         :checked => false)

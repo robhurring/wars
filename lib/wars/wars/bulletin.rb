@@ -1,7 +1,7 @@
 module Wars
   class Bulletin < ActiveRecord::Base
-    belongs_to :player
     
+    validates_presence_of :name
     validates_presence_of :message
     validates_length_of :message, :within => 1..Data::BulletinLength, :on => :create, :message => "must be between 1-#{Data::BulletinLength} chars."
 

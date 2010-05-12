@@ -18,7 +18,7 @@
       <div class='bulletin'>
         <blockquote>
           <p><%= Sanitize.clean bulletin.message %></p>
-          <small>&mdash; <%= bulletin.player.name %> on <%= bulletin.created_at.strftime('%b %d, %Y @ %H:%M') %></small>
+          <small>&mdash; <%= bulletin.name %> on <%= bulletin.created_at.strftime('%b %d, %Y @ %H:%M') %></small>
         </blockquote>
       </div>
     <% end %>
