@@ -4,7 +4,7 @@ class OfficeWars < Sinatra::Base
   Log = Logger.new('log/wars.log')
 
   enable :sessions, :cookies, :logging
-  use Rack::Flash, :sweep => true, :accessorize => [:notice, :error]
+  use Rack::Flash, :sweep => false, :accessorize => [:notice, :error, :attack]
   use Rack::Static, :urls => ['/css', '/images', '/js'], :root => 'public'    
   
   configure do
@@ -19,6 +19,7 @@ class OfficeWars < Sinatra::Base
   end
 
   after do
+    flash.flag!
     Wars.save(session)# && !request.xhr?
   end
 
