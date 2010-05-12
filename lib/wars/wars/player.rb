@@ -40,10 +40,11 @@ module Wars
 
     validates_uniqueness_of :name
     validates_presence_of :password
+    validates_format_of :name, :with => /^[\w\d]+$/, :on => :save, :message => "is invalid. Please only use alphanumeric characters!"
 
     serialize :equipment, Array
     serialize :products, Array
-  
+    
     # loads our equipment into Equipment objects, with thier quantity
     def equipment_map
       equipment.map{ |e| [Equipment.find(e[:id]), e[:quantity]]}
