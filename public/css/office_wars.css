@@ -302,7 +302,19 @@ ul.locations{
 	font-size:14px;
 	line-height:20px;
 }
-
+#flash_attack{
+  background: #eee url(../images/icons/attack.png) no-repeat 10px 10px;
+	border: 1px solid #ddd;
+	padding: 10px;
+	padding-left: 55px;
+	color: #711C1C;
+	margin-bottom: 10px;
+	font-size:17px;
+	line-height:26px;
+  }
+  #flash_error strong{
+    color: #9E2727;
+    }
 #flash_error,
 .error{
 	background: #fae1d6 url(../images/icons/exclamation.png) no-repeat 10px 10px;
