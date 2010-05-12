@@ -149,7 +149,7 @@ class OfficeWars < Sinatra::Base
           reward_msg = "<br/>You took #{reward.last} &times; #{reward.first.name}."
         end
                 
-        flash[:notice] = "You've defeated <strong>#{npc.name}</strong>!#{reward_msg}"
+        flash[:notice] = "You've defeated <strong>#{npc.name}</strong> with a big hit for <strong>#{damage}</strong> damage!#{reward_msg}"
         redirect(url_for('/location/%d' % @player.location_id))
       end
     else
