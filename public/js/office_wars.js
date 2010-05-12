@@ -67,6 +67,8 @@ $(function()
       if(code < 97) code += 32; // bring us on up
       if(code == 98 /* "b" */) $('#buyable').focus();
       if(code == 115 /* "s" */) $('#sellable').focus();
+      if(code == 97 /* "a" */) $('#attack').trigger('click');
+      if(code == 114 /* "r" */) $('#run_away').trigger('click');
     });
 
     $('#buyable').live('keypress', function(){ $(this).click(); });
