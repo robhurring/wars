@@ -84,9 +84,9 @@ class OfficeWars < Sinatra::Base
   
   get '/fight/run' do
     @fight = @player.fight
+    
     if @fight
       npc = @fight.npc
-      npc.life -= @fight.npc_damage_taken
       
       if @player.run(npc)
         # TODO: this can probably be changed to a better amount

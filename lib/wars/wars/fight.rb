@@ -4,7 +4,11 @@ module Wars
     validates_presence_of :player
     
     def npc
-      @npc ||= Npc.find(npc_id)
+      @npc ||= begin
+        npc = Npc.find(npc_id).dup
+        npc.life -= npc_damage_taken
+        npc
+      end
     end
   end
 end
