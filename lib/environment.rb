@@ -1,6 +1,8 @@
 gem 'sinatra', '=1.0'
 gem 'activesupport', '=2.3.5'
 gem 'activerecord', '=2.3.5'
+gem 'sanitize', '=1.2.1'
+gem 'nokogiri', '=1.4.1' # dependency of sanitize
 
 require 'sinatra/base'
 require 'active_support'
@@ -8,6 +10,7 @@ require 'active_record'
 require 'rack-flash'
 require 'lib/helpers'
 require 'lib/core_ext'
+require 'sanitize'
 
 DatabaseAuth = YAML::load(File.read(File.join(File.dirname(__FILE__), '..', 'config', 'database.yml')))
 
