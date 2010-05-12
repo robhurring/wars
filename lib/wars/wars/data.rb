@@ -114,11 +114,11 @@ module Wars
       Npc.new(
         :id => 104,
         :name => 'Blake',
-        :strength => 80,
+        :strength => 100,
         :defense => 100,
         :life => 500,
         :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(104), (200_000..500_000)) },
-        :condition => Proc.new{ |p| p.strength >= 150 && p.defense >= 100 && rand(2) == 0 }
+        :condition => Proc.new{ |p| p.strength >= 150 && p.defense >= 85 && rand(2) == 0 }
       )
     ]
     
