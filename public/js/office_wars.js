@@ -67,8 +67,8 @@ $(function()
       if(code < 97) code += 32; // bring us on up
       if(code == 98 /* "b" */) $('#buyable').focus();
       if(code == 115 /* "s" */) $('#sellable').focus();
-      if(code == 97 /* "a" */){ if($('#attack')) location = $.wars.paths.fight.attack; }
-      if(code == 114 /* "r" */){ if($('#run_away')) location = $.wars.paths.fight.run; }
+      if(code == 97 /* "a" */){ if($('a#attack').length > 0) location = $.wars.paths.fight.attack }
+      if(code == 114 /* "r" */){ if($('a#run_away').length > 0) location = $.wars.paths.fight.run; }
     });
 
     $('#buyable').live('keypress', function(){ $(this).click(); });
