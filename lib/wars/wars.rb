@@ -80,6 +80,7 @@ module Wars
     end    
   end
   
+  # TODO: randomize encounter rate
   def self.run_fight_events
     Wars.log "Running fight events"
     if Data::Encounters
