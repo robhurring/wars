@@ -141,7 +141,7 @@ module Wars
       :action => Proc.new{ self.cash += rand(1000) }
      ),
      Event.new(
-      :description => "You found something shiny on the ground!",
+      :description => "You found something on the ground!",
       :condition => Proc.new{ rand(40) == 0 },
       :action => Proc.new{ 
         rand_product = Data.random_product.to_h.merge(:quantity => rand(5) + 1)
