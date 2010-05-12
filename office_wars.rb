@@ -72,8 +72,13 @@ class OfficeWars < Sinatra::Base
 # Fighting
 
   get '/fight' do
-    @fight = @player.fight    
-    erb :fight
+    @fight = @player.fight
+    if @fight
+      erb :fight
+    else
+      flash[:error] = "You aren't fighting!"
+      redirect(url_for('/location/%d' % @player.location_id))
+    end
   end
   
   get '/fight/run' do
