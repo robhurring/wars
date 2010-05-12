@@ -138,28 +138,27 @@ module Wars
      Event.new(
       :description => "You found some money on the ground!",
       :condition => Proc.new{ rand(30) == 0 },
-      :action => Proc.new{ self.cash += rand(1000) }
+      :action => Proc.new{ |p| p.cash += rand(1000) }
      ),
      Event.new(
       :description => "You found something on the ground!",
       :condition => Proc.new{ rand(40) == 0 },
-      :action => Proc.new{ 
-        rand_product = Data.random_product.to_h.merge(:quantity => rand(5) + 1)
-        self.products << rand_product
+      :action => Proc.new{ |p| 
+        p.update_products random_product.to_h(:quantity => rand(5) + 1)
       }
      ),
      Event.new(
       :description => "#{BookieName} broke your legs! Better learn to pay up on time!",
       :condition => Proc.new{ |p| p.days_in_debt > BookieTolerance && !p.debt.zero? },
-      :action => Proc.new{
-        if self.cash > self.debt
-          self.cash -= self.debt
-          self.debt = 0
-          self.days_in_debt = 0
-          self.life /= 2
+      :action => Proc.new{ |p|
+        if p.cash > p.debt
+          p.cash -= p.debt
+          p.debt = 0
+          p.days_in_debt = 0
+          p.life /= 2
         else
-          self.tombstone = "Pain sandwich courtesy of #{Data::BookieName}"
-          self.life = 0
+          p.tombstone = "Pain sandwich courtesy of #{Data::BookieName}"
+          p.life = 0
         end
       }
      )

@@ -8,9 +8,9 @@ module Wars
       @action = attributes[:action] || Proc.new{}
     end
     
-    def apply(object)
-      if self.condition.call(object)
-        object.instance_eval(&action)
+    def apply(player)
+      if self.condition.call(player)
+        action.call(player)
       end
     end
   end
