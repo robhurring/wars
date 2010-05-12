@@ -91,7 +91,7 @@ class OfficeWars < Sinatra::Base
       if @player.run(npc)
         # TODO: this can probably be changed to a better amount
         loss = @player.cash / (5 + rand(10))
-        flash[:notice] = "You got away! (But you dropped $#{format_number loss} while running away...)"
+        flash[:attack] = "You got away!<br/>But you dropped <strong>$#{format_number loss}</strong> while running away..."
         @fight.destroy
         @player.reset_fight_counter!
         redirect(url_for('/location/%d' % @player.location_id))
@@ -99,7 +99,7 @@ class OfficeWars < Sinatra::Base
         damage = npc.attack(@player)
         @player.life -= damage
         if @player.alive?
-          flash[:error] = "Can't escape!<br/><strong>#{npc.name}</strong> hits you for <strong>#{damage}</strong> damage!"
+          flash[:attack] = "Can't escape!<br/><strong>#{npc.name}</strong> hits you for <strong>#{damage}</strong> damage!"
         else
           @player.tombstone = npc.name
           is_game_over?
@@ -133,7 +133,7 @@ class OfficeWars < Sinatra::Base
         npc_damage = npc.attack(@player)
         @player.life -= npc_damage
         if @player.alive?
-          flash[:error] = "You whack <strong>#{npc.name}</strong> for <strong>#{damage}</strong> damage!<br/>#{npc.name} hits you for <strong>#{npc_damage}</strong> damage!"
+          flash[:attack] = "You whack <strong>#{npc.name}</strong> for <strong>#{damage}</strong> damage!<br/>#{npc.name} hits you for <strong>#{npc_damage}</strong> damage!"
         else
           @player.tombstone = npc.name
           is_game_over?
@@ -146,16 +146,16 @@ class OfficeWars < Sinatra::Base
 
         if reward.first == :cash
           @player.cash += reward.last
-          reward_msg = "<br/>You took $#{format_number reward.last}."
+          reward_msg = "<br/>You took <strong>$#{format_number reward.last}</strong>."
         elsif reward.first.is_a?(Wars::Product)
           @player.update_products(reward.first.to_h(:quantity => reward.last))
-          reward_msg = "<br/>You took #{reward.last} &times; #{reward.first.name}."
+          reward_msg = "<br/>You took <strong>#{reward.last} &times; #{reward.first.name}</strong>."
         elsif reward.first.is_a?(Wars::Equipment)
           @player.update_equipment(reward.first.to_h(:quantity => reward.last))
-          reward_msg = "<br/>You took #{reward.last} &times; #{reward.first.name}."
+          reward_msg = "<br/>You took <strong>#{reward.last} &times; #{reward.first.name}</strong>."
         end
                 
-        flash[:notice] = "You've defeated <strong>#{npc.name}</strong> with a big hit for <strong>#{damage}</strong> damage!#{reward_msg}"
+        flash[:attack] = "You've defeated <strong>#{npc.name}</strong> with a big hit for <strong>#{damage}</strong> damage!#{reward_msg}"
         redirect(url_for('/location/%d' % @player.location_id))
       end
     else
