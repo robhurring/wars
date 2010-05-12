@@ -8,6 +8,8 @@ module Wars
     EncounterRate = 5 # days
     BankInterestRate = 1.0015
     DebtInterestRate = 1.15
+    BulletinCost = 25_000
+    BulletinLength = 140
     
     Equipments = [
       Equipment.new(:id => 1, :name => 'Messenger Bag', :limit => 1, :price => 10_000, :adds => :space, :amount => 30),
@@ -67,7 +69,8 @@ module Wars
       Store.new(:location_id => 1, :name => 'Lumbergh', :sells => :loans),
       Store.new(:location_id => 2, :name => 'Company Gift Shop', :sells => GiftShopInventory),
       Store.new(:location_id => 2, :name => 'Company Nurse', :sells => HospitalInventory),
-      Store.new(:location_id => 7, :name => 'Dwight\'s Survival Shop', :sells => SurvivalEquipment)
+      Store.new(:location_id => 7, :name => 'Dwight\'s Survival Shop', :sells => SurvivalEquipment),
+      Store.new(:location_id => 3, :name => 'Message Board', :sells => :bulletins)
     ]
 
     Npcs = [
