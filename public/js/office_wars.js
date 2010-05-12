@@ -67,8 +67,8 @@ $(function()
       if(code < 97) code += 32; // bring us on up
       if(code == 98 /* "b" */) $('#buyable').focus();
       if(code == 115 /* "s" */) $('#sellable').focus();
-      if(code == 97 /* "a" */) $('#attack').trigger('click');
-      if(code == 114 /* "r" */) $('#run_away').trigger('click');
+      if(code == 97 /* "a" */) location = $.wars.paths.fight.attack;
+      if(code == 114 /* "r" */) location = $.wars.paths.fight.run;
     });
 
     $('#buyable').live('keypress', function(){ $(this).click(); });
@@ -141,20 +141,6 @@ $(function()
     restage(path);
     return false;
   });
-
-// Fight
-
-  $('#attack').live('click', function()
-  {
-    fight(true);
-    return false;
-  });
-
-  $('#run_away').live('click', function()
-  {
-    fight(false);
-    return false;
-  });
   
 // Destructive Links
 
@@ -165,16 +151,6 @@ $(function()
   });
 
 });
-
-function fight(attack)
-{
-  var path = $.wars.paths.fight[(attack ? 'attack' : 'run')];
-  
-  $('#arena').loading({align: 'center', mask: true, img: '/images/indicator.gif'});
-  $('#arena').load(path, (data || {}), function(){
-    $('#arena').loading();
-  });  
-}
 
 function restage(path, data)
 {
