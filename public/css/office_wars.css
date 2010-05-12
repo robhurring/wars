@@ -53,6 +53,20 @@ ul{
   list-style:none;
   }
 
+blockquote{
+  background:url(../images/icons/quote.gif) no-repeat 0 0;
+  margin:0;
+  padding-left:30px;
+  }
+  blockquote p{
+    font-size:16px;
+    }
+  blockquote small{
+    display:block;
+    text-align:right;
+    color:#555;
+    }
+
 /* Global Support */
 
 .clearfix:after {
@@ -127,7 +141,8 @@ ul{
   #products,
   #store,
   #bank,
-  #loans{
+  #loans,
+  #bulletins{
     width:585px;
     padding-bottom:15px;
     }
@@ -139,6 +154,13 @@ ul{
         height:150px;
         font-size:14px;
         }
+
+#bulletin_list{
+  margin-top:30px;
+  }  
+  .bulletin{
+    margin:5px 0;
+    }
 
 .event{
 	background: #CBC9FF;
@@ -172,6 +194,21 @@ ul{
       font-size:20px;
       text-align:center;
       }
+
+fieldset{
+  background:#fafafa;
+  border:1px solid #ddd;
+  margin:10px auto;
+  padding:10px;
+  }
+  textarea{
+    border:1px solid #ddd;
+    padding:5px;
+    font-size:16px;
+    }
+  .full_width{
+    width:98%;
+    }
       
 ul.locations{
   }

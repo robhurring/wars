@@ -1,0 +1,26 @@
+<div id='bulletins' class='block'>
+  <h3><%= @store.name %></h3>
+  <small>Posting will cost you: <strong>$<%= format_number Wars::Data::BulletinCost %></strong></small>
+  <fieldset>
+    <textarea id='bulletin_message' rows='2' class='full_width' maxlength='<%= Wars::Data::BulletinLength %>'><%= @message || '' %></textarea>
+    <div class='clearfix'>
+      <div class='left'>
+        <p><input type='submit' value='Post Bulletin!' id='post_bulletin' /> or <%= link_to "Leave #{@store.name}", '/location/%d' % @player.location_id %></p>                
+      </div>
+      <div class='right'>
+        <span class='character_counter'>140</span>
+      </div>
+    </div>
+  </fieldset>  
+  
+  <div id='bulletin_list'>
+    <% Wars::Bulletin.recent.each do |bulletin| %>
+      <div class='bulletin'>
+        <blockquote>
+          <p><%= Sanitize.clean bulletin.message %></p>
+          <small>&mdash; <%= bulletin.player.name %> on <%= bulletin.created_at.strftime('%b %d, %Y @ %H:%M') %></small>
+        </blockquote>
+      </div>
+    <% end %>
+  </div>
+</div>

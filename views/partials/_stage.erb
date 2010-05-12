@@ -6,6 +6,8 @@
       <%= partial :bank %>
     <% elsif @store.sells == :loans %>
       <%= partial :loans %>
+    <% elsif @store.sells == :bulletins %>
+      <%= partial :bulletins %>
     <% else %>
       <%= partial :store %>
     <% end %>

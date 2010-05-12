@@ -422,6 +422,41 @@ class OfficeWars < Sinatra::Base
     end
   end
 
+# Bulletins
+
+  post '/post_bulletin' do
+    @store = Wars::Store.all.detect{ |s| s.sells == :bulletins }
+    
+    if @player.cash < Wars::Data::BulletinCost
+      error = "You can't afford to post a bulletin! You need $#{format_number Wars::Data::BulletinCost}"
+    else
+      bulletin = Wars::Bulletin.new(
+        :player_id => @player.id, 
+        :message => params[:message],
+        :ip => request.ip,
+        :checked => false)
+        
+      if bulletin.save
+        @player.cash -= Wars::Data::BulletinCost
+      else
+        @message = bulletin.message
+        error = bulletin.errors.full_messages.join('<br/>')
+      end
+    end
+    
+    if error
+      flash[:error] = error
+    else
+      flash[:notice] = "Your message was posted!"
+    end
+    
+    if request.xhr?
+      partial :stage
+    else
+      erb :stage
+    end
+  end
+
 # Support
 
 private

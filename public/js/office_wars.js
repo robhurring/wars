@@ -22,6 +22,9 @@ $.wars = {
     fight: {
       attack: '/fight/attack',
       run: '/fight/run'
+    },
+    bulletins: {
+      post: '/post_bulletin'
     }
   },
   messages: {
@@ -40,7 +43,19 @@ $(function()
 {
   
 // App Setup
+
   $.metadata.setType('attr', 'data');
+  
+  $('textarea[maxlength]').live('keyup', function()
+  {
+		var max = parseInt($(this).attr('maxlength'));
+
+		if($(this).val().length > max)
+			$(this).val($(this).val().substr(0, $(this).attr('maxlength')));
+
+		$(this).parent().find('.character_counter').html(max - $(this).val().length);
+	});
+	
   
 // KeyBindings
 
@@ -77,6 +92,16 @@ $(function()
   
   $('#transaction_submit').live('click', function(){ preform_transaction(); });
   $('#transaction_quantity').live('keypress', function(event){ if(event.charCode == 13) preform_transaction(); });
+
+// Bulletins
+
+  $('#bulletin_message').focus();
+  $('#post_bulletin').live('click', function()
+  {
+    var message = $('#bulletin_message').val();
+    restage($.wars.paths.bulletins.post, {"message": message})
+    return false;
+  });
 
 // Bank & Loans
 
