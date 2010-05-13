@@ -252,7 +252,7 @@ class OfficeWars < Sinatra::Base
       flash[:error] = error
     else
       if item && product
-        flash[:notice] = "You sold #{quantity} &times; #{product.name} for $#{format_number final_price} and made $#{format_number profit}"
+        flash[:notice] = "You sold #{quantity} &times; #{product.name} for $#{format_number final_price} and made $#{format_number profit} profit!"
       else
         flash[:notice] = "Dunno what you did. but you broke it..."
       end
