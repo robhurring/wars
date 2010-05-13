@@ -5,7 +5,7 @@ module Wars
     BookieName = 'Lumbergh'
     BookieTolerance = 30 # days
     Encounters = true
-    EncounterRate = 5 # days
+    EncounterRange = (3..7) # days
     BankInterestRate = 1.0015
     DebtInterestRate = 1.15
     BulletinCost = 25_000

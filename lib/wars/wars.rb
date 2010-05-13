@@ -84,7 +84,7 @@ module Wars
   def self.run_fight_events
     Wars.log "Running fight events"
     if Data::Encounters
-      if player.days_without_incident > Data::EncounterRate
+      if player.days_without_incident > Data::EncounterRange.rand
         # eligable NPCs -- ones that meet our conditions, all by default
         eligible_npcs = Npc.all.select{ |npc| npc.eligible?(player) }
         return if eligible_npcs.empty?
