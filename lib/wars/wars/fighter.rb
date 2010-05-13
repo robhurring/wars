@@ -9,7 +9,6 @@ module Wars
     def defense; 0 end
     
     # returns the damage to opponent
-    # TODO: do some calculations for damage and take into account defense, etc
     def attack(opponent)
       amplifier = (rand * DamageVariable).ceil
       dmg = 0
