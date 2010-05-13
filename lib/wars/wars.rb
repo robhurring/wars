@@ -141,7 +141,13 @@ module Wars
   def self.game_over!
     raise "No player?!" if player.blank?
     reason = player.tombstone || 'Natural Causes'
-    score = HighScore.new(:name => player.name, :score => player.score, :day => player.day, :reason => reason)
+    score = HighScore.new(
+      :name => player.name, 
+      :score => player.score, 
+      :day => player.day, 
+      :reason => reason,
+      :level => player.level)
+      
     if score.save
       player.destroy
       logout

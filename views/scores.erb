@@ -6,6 +6,7 @@
   <tr> 
     <th>#</th>
     <th>Player Name</th>
+    <th>Level</th>
     <th>Score</th>
     <th>Day</th>
     <th>Death By</th>
@@ -15,6 +16,7 @@
   <tr>
     <td><%= '%02d' % (index + 1) %></td>
     <td><%= score.name %></td>
+    <td><%= format_number score.level %></td>
     <td><%= format_number score.score %></td>
     <td><%= score.day %></td>
     <td><%= score.reason %></td>

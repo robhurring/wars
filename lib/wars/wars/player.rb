@@ -66,6 +66,11 @@ module Wars
     def max_life
       MaxLife + equipment_total(:life)
     end
+    
+    def level
+      return 1 if score <= 0
+      Math.exp(Math.log((score.to_f / 16)) / 3.0).round
+    end
   
     def score
       total_products = products.inject(0){ |t, p| t + (p[:price] * p[:quantity]) }
