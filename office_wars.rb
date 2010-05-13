@@ -12,15 +12,19 @@ class OfficeWars < Sinatra::Base
   end
 
   before do
-    Log.info("@: %s" % request.path.inspect)
+    Log.info("@: %s" % request.path.inspect)    
     Wars.initialize!(session)
-    setup_player || redirect(url_for '/login') unless request.url.include?('/login') || request.url.include?('/scores')
+    
+    unless %w{/ /instructions /login /scores}.any?{ |path| request.path == path }
+      setup_player || redirect(url_for '/login')
+    end
+    
     check_game_conditions
   end
 
   after do
     flash.flag!
-    Wars.save(session)# && !request.xhr?
+    Wars.save(session)
   end
 
 # Main
