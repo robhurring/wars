@@ -1,5 +1,9 @@
 module Sinatra; module Helpers
 
+  def h(text)
+    Sanitize.clean(text)
+  end
+
   def partial(name, locals = {})
     erb :"partials/_#{name}", :layout => false, :locals => locals
   end
