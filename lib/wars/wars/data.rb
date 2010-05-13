@@ -130,7 +130,7 @@ module Wars
     ['Ricky Roma', 'Shelley Levene', 'John Williamson', 'Buddy Ackerman', 'Dawn Lockard', 'Guy', 'Milton', 'Ajay', 'Bob #1', 'Bob #2', 'Michael', 'Pam', 'Creed', 'Andy', 'Phillis', 'Toby'].each do |npc_name|
       Npcs << Npc.new(
         :name => npc_name,
-        :strength => (10..40).rand,
+        :strength => (10..25).rand,
         :defense => (0..15).rand,
         :life => (85..125).rand,
         :rewards => Proc.new{ rand(2) == 0 ? [Data.random_product, (1..5).rand] : [:cash, (500..2_000).rand] },
