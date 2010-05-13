@@ -85,7 +85,7 @@ module Wars
         :strength => 45,
         :defense => 18,
         :life => 100,
-        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(100), (10_000..20_000)) },
+        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(100), (10_000..20_000), 1, 1) },
         :condition => Proc.new{ |p| p.strength >= 50 }
       ),
       Npc.new(
@@ -94,7 +94,7 @@ module Wars
         :strength => (55..65).rand,
         :defense => (25..30).rand,
         :life => (150..200).rand,
-        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(101), (25_000..50_000)) },
+        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(101), (25_000..50_000), 1, 1) },
         :condition => Proc.new{ |p| p.strength >= 50 && p.max_life > 100 }
       ),
       Npc.new(
@@ -103,7 +103,7 @@ module Wars
         :strength => 50,
         :defense => 100,
         :life => 250,
-        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(103), (50_000..75_000)) },
+        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(103), (50_000..75_000), 1, 1) },
         :condition => Proc.new{ |p| p.strength > 50 }
       ),
       Npc.new(
@@ -112,7 +112,7 @@ module Wars
         :strength => 80,
         :defense => 100,
         :life => 350,
-        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(102), (75_000..100_000)) },
+        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(102), (75_000..100_000), 1, 1) },
         :condition => Proc.new{ |p| p.strength >= 100 }
       ),
       Npc.new(
@@ -121,7 +121,7 @@ module Wars
         :strength => 100,
         :defense => 125,
         :life => 500,
-        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(104), (200_000..500_000)) },
+        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(104), (200_000..500_000), 1, 1) },
         :condition => Proc.new{ |p| p.strength >= 150 && p.defense >= 85 }
       )
     ]
