@@ -31,5 +31,26 @@ module Wars
     def to_h(with = {})
       {:id => id}.merge(with)
     end
+    
+    # how many of this equipment is the player allowed to purchase
+    def quantity(player)
+      carrying = player.equipment.detect{ |e| e[:id] == id }
+      allowed = \
+        if adds == :life && disposable?
+          if amount > player.max_life && player.life < player.max_life
+            1
+          else
+            ((player.max_life - (player.life - (player.life % amount))) / amount).ceil
+          end
+        else
+          if carrying
+            (limit - carrying[:quantity])
+          else
+            limit
+          end
+        end
+      allowed
+    end
+    
   end
 end

@@ -4,22 +4,7 @@
     <div class='left product_table'>
       <select id='buyable' size='10'  data="{products: false, buying: true}">
         <% @store.sells.each do |equipment| %>
-          <% 
-            carrying = @player.equipment.detect{ |e| e[:id] == equipment.id }
-            # HACK: this isn't the best place for this, but we don't want the user buying 50,000 med packs and wasting all
-            # their money. or do we not care?
-            allowed = \
-              if equipment.adds == :life && equipment.disposable?
-                ((@player.max_life - (@player.life - (@player.life % equipment.amount))) / equipment.amount).ceil
-              else
-                if carrying
-                  (equipment.limit - carrying[:quantity])
-                else
-                  equipment.limit
-                end
-              end
-          %>
-          <option value='<%= equipment.id %>' data="{name: '<%= equipment.name %>', price: '<%= format_number equipment.price %>', limit: <%= equipment.limit %>, quantity: <%= allowed %>, adds: '<%= equipment.adds %>', amount: <%= equipment.amount %>}">
+          <option value='<%= equipment.id %>' data="{name: '<%= equipment.name %>', price: '<%= format_number equipment.price %>', limit: <%= equipment.limit %>, quantity: <%= equipment.quantity(@player) %>, adds: '<%= equipment.adds %>', amount: <%= equipment.amount %>}">
             <%= equipment.name %> - $<%= format_number equipment.price %> (+<%= equipment.amount %> <%= equipment.adds %>)<%= ' [once]' if equipment.disposable? %>
           </option>
         <% end %>
