@@ -20,6 +20,8 @@ module Wars
       Equipment.new(:id => 6, :name => 'Mousing Star', :limit => 1, :price => 100_000, :adds => :strength, :amount => 50),
       Equipment.new(:id => 7, :name => 'Peacoat', :limit => 1, :price => 25_000, :adds => :defense, :amount => 25),
       Equipment.new(:id => 8, :name => 'Medical Kit', :limit => 999, :price => 6_000, :adds => :life, :amount => 100, :disposable => true),
+      Equipment.new(:id => 9, :name => 'Full Heal', :limit => 1, :price => 20_000, :adds => :life, :amount => 1_000, :disposable => true),
+      Equipment.new(:id => 10, :name => 'Heart', :limit => 5, :price => 1_000_000, :adds => :life, :amount => 50),
       # Non-Shop Special Rewards
       Equipment.new(:id => 100, :name => 'Coffee Mug', :limit => 1, :price => 0, :adds => :life, :amount => 100),
       Equipment.new(:id => 101, :name => 'Ron\'s Bat', :limit => 1, :price => 0, :adds => :strength, :amount => 50),
@@ -61,7 +63,9 @@ module Wars
 
     HospitalInventory = [
       Equipment.find(4),
-      Equipment.find(8)
+      Equipment.find(8),
+      Equipment.find(9),
+      Equipment.find(10)
     ]
             
     Stores = [
