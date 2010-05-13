@@ -1,6 +1,6 @@
 module Wars
   module Data
-    MaxDays = 365
+    MaxDays = 500
     MaxLoan = 30_000
     BookieName = 'Lumbergh'
     BookieTolerance = 30 # days
