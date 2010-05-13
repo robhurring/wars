@@ -17,7 +17,13 @@
 
   <body><div id='page_wrapper'>
     <div id='header'>
-      <h1>Office Wars</h1>
+      <h1>
+        <% if @player %>
+          Office Wars
+        <% else %>
+          <%= link_to 'Office Wars', url_for('/') %>
+        <% end %>
+      </h1>
     </div>
     <div id='stage'>
       <%= yield %>
