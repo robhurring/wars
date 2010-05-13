@@ -1,22 +1,29 @@
-<h2>Login or Create an Account</h2>
+<h2>Login or Create an OfficeWars Account</h2>
 
 <%= partial :flash %>
 
-<div id='login_form'>
-  <form action='<%= url_for '/login' %>' method='post'>
-    <p>
-      <label for="name">Name</label>
-      <input type="text" name="name" value="<%= @player.try(:name) %>" id="name" class='text' />
-    </p>
-    <p>
-      <label for="password">Password</label>
-      <input type="password" name="password" value="" id="password" class='text'>
-    </p>
-    <p id='new_user_box'>
-      <input type='checkbox' name='new_user' id='new_user'> <label for='new_user' style='float:none'>Check this if you are creating an account.</label>
-    </p>
-    <p>
-      <input type="submit" value="Start Playing &rarr;">
-    </p>
-  </form>
+<div class='clearfix'>
+  <div id='login_form'>
+    <form action='<%= url_for '/login' %>' method='post'>
+      <p>
+        <label for="name">Name</label>
+        <input type="text" name="name" value="<%= @player.try(:name) %>" id="name" class='text' />
+      </p>
+      <p>
+        <label for="password">Password</label>
+        <input type="password" name="password" value="" id="password" class='text'>
+      </p>
+      <p id='new_user_box'>
+        <input type='checkbox' name='new_user' id='new_user'> <label for='new_user' style='float:none'>Check this if you are creating an account.</label>
+      </p>
+      <p>
+        <input type="submit" value="Start Playing &rarr;">
+      </p>
+    </form>
+  </div>
+  <div id='login_notes'>
+    <p><strong><%= link_to 'OfficeWars Instructions', url_for('/instructions') %></strong> &mdash; Before you play for the first time, check out the instructions!</p>
+    
+    <p><strong><%= link_to 'High Scores List', url_for('/scores') %></strong> &mdash; See who is the leading the boards.</p>
+  </div>
 </div>

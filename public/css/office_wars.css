@@ -99,7 +99,17 @@ blockquote{
       color:#648D39;
       }
 
+#login_notes{
+  float:right;
+  width:40%;
+  border:2px solid #ddd;
+  background:#fafafa;
+  padding:20px;
+  margin:20px 0;
+  }
+
 #login_form{
+  float:left;
   width:50%;
   border:2px solid #ddd;
   background:#fafafa;
