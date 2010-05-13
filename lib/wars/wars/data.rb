@@ -82,20 +82,20 @@ module Wars
       Npc.new(
         :id => 100,
         :name => 'Lumbergh',
-        :strength => 65,
-        :defense => 20,
+        :strength => 45,
+        :defense => 18,
         :life => 100,
-        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(100), (5_000..10_000)) },
-        :condition => Proc.new{ |p| p.strength >= 35 }
+        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(100), (10_000..20_000)) },
+        :condition => Proc.new{ |p| p.strength >= 50 }
       ),
       Npc.new(
         :id => 101,
         :name => 'Ron Livingston',
-        :strength => 80,
-        :defense => 30,
-        :life => 200,
-        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(101), (10_000..30_000)) },
-        :condition => Proc.new{ |p| p.strength >= 50 && rand(2) == 0 }
+        :strength => (55..65).rand,
+        :defense => (25..30).rand,
+        :life => (150..200).rand,
+        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(101), (25_000..50_000)) },
+        :condition => Proc.new{ |p| p.strength >= 50 && p.max_life > 100 }
       ),
       Npc.new(
         :id => 102,
@@ -103,8 +103,8 @@ module Wars
         :strength => 50,
         :defense => 100,
         :life => 250,
-        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(103), (25_000..50_000)) },
-        :condition => Proc.new{ |p| p.strength >= 100 }
+        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(103), (50_000..75_000)) },
+        :condition => Proc.new{ |p| p.strength > 50 }
       ),
       Npc.new(
         :id => 103,
@@ -112,29 +112,41 @@ module Wars
         :strength => 80,
         :defense => 100,
         :life => 350,
-        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(102), (50_000..100_000)) },
-        :condition => Proc.new{ |p| p.strength >= 100 && rand(2) == 0 }
+        :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(102), (75_000..100_000)) },
+        :condition => Proc.new{ |p| p.strength >= 100 }
       ),
       Npc.new(
         :id => 104,
         :name => 'Blake',
         :strength => 100,
-        :defense => 100,
+        :defense => 125,
         :life => 500,
         :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(104), (200_000..500_000)) },
-        :condition => Proc.new{ |p| p.strength >= 150 && p.defense >= 85 && rand(2) == 0 }
+        :condition => Proc.new{ |p| p.strength >= 150 && p.defense >= 85 }
       )
     ]
     
-    # Normal random NPCs
-    ['Ricky Roma', 'Shelley Levene', 'John Williamson', 'Buddy Ackerman', 'Dawn Lockard', 'Guy', 'Milton', 'Ajay', 'Bob #1', 'Bob #2', 'Michael', 'Pam', 'Creed', 'Andy', 'Phillis', 'Toby'].each do |npc_name|
+    # Easy NPCs -- can be shrugged off with a little defense so they can focus on trading. Weak product drops
+    ['Milton', 'Ajay', 'Michael Scott', 'Creed', 'Andy', 'Toby'].each do |npc_name|
       Npcs << Npc.new(
         :name => npc_name,
         :strength => (10..25).rand,
-        :defense => (0..15).rand,
+        :defense => (0..10).rand,
         :life => (85..125).rand,
-        :rewards => Proc.new{ rand(2) == 0 ? [Data.random_product, (1..5).rand] : [:cash, (500..2_000).rand] },
-        :condition => Proc.new{ |p| p.strength < 100 }
+        :rewards => Proc.new{ rand(2) == 0 ? [Data.random_product(1,2,3), (1..5).rand] : [:cash, (500..2_000).rand] },
+        :condition => Proc.new{ |p| p.strength <= Player::StartingStrength }
+      )
+    end
+    
+    # Medium NPCs -- player went the fighting route by buying weapons. Better product drops
+    ['Ricky Roma', 'Shelley Levene', 'John Williamson', 'Buddy Ackerman', 'Dawn Lockard', 'Guy'].each do |npc_name|
+      Npcs << Npc.new(
+        :name => npc_name,
+        :strength => (35..65).rand,
+        :defense => (0..20).rand,
+        :life => (85..125).rand,
+        :rewards => Proc.new{ rand(2) == 0 ? [Data.random_product(3,4,5,6), (1..5).rand] : [:cash, (2_500..6_000).rand] },
+        :condition => Proc.new{ |p| p.strength > 25 && p.strength < 100 }
       )
     end
 
@@ -172,8 +184,12 @@ module Wars
     StartingEquipment = [Equipment.find(1).to_h(:quantity => 1)]
     StartingProducts = []
     
-    def self.random_product
-      product = Data::Products[rand(Data::Products.size)].dup
+    # Select a random product from the list of ID's (or all) to award for an NPC fight
+    def self.random_product(*product_ids)
+      product_ids = Data::Products.map(&:id) if product_ids.empty?
+      pool = Data::Products.select{ |p| product_ids.include?(p.id) }
+      
+      product = pool[rand(pool.size)].dup
       product.price = 0 # if it was used in an event, then free is the key
       product
     end
