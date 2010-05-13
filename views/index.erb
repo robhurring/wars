@@ -1,2 +1,14 @@
-Welcome to OfficeWars ... etc.
-<p><%= link_to 'Login', '/login' %></p>
+<div id='instructions'>
+  <h1>Welcome to Office Wars!</h1>
+  <p>Office Wars is a web based trading game with gameplay based on <strong>DopeWars</strong>. If you were a fan of the DopeWars games then give this a shot. It doesn't have fancy graphics or any of that jazz, but it is really fun to kill a few minutes during downtime. The main objective of OfficeWars is to become to top trader of office supplies and crush your foes!</p>
+  
+  <br/>
+  <h2 align='center'><%= link_to 'Start Playing OfficeWars Now!', url_for('/login') %></h2>
+  
+  <h2>How to Play</h2>
+  <p>To learn how to play you can read the <strong><%= link_to 'instructions', url_for('/instructions') %> or just create an account and start clicking around.</p>
+
+  <h2>High Scores</h2>
+  <p>If you want to see how other players have done in the work-o-sphere, you can check out the <strong><%= link_to 'High Scores List', url_for('/scores') %></strong>.</p>
+
+</div>
