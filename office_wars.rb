@@ -30,7 +30,7 @@ class OfficeWars < Sinatra::Base
   end
   
   get '/scores' do
-    @scores = Wars::HighScore.all(:order => 'score DESC')
+    @scores = Wars::HighScore.top
     erb :scores
   end
   
