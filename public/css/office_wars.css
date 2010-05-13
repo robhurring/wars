@@ -359,3 +359,25 @@ ul.locations{
   -moz-opacity: 0.65 ;
   filter:alpha(opacity=65 0.65 );
   }
+
+/* Instructions */
+
+#instructions{
+  }
+  #instructions h1,
+  #instructions h2{
+    margin:20px 0;
+    }
+  #instructions ul{
+    margin:20px 0 20px 30px;
+    }
+  #instructions p,
+  #instructions li{
+    margin:10px 0;
+    font-size:16px;
+    line-height:24px;
+    color:#494949;
+    }
+  #instructions strong{
+    color:#000;
+    }

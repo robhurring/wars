@@ -23,7 +23,7 @@ class OfficeWars < Sinatra::Base
     Wars.save(session)# && !request.xhr?
   end
 
-# Begin
+# Main
 
   get '/' do
     erb :index
@@ -32,6 +32,10 @@ class OfficeWars < Sinatra::Base
   get '/scores' do
     @scores = Wars::HighScore.top
     erb :scores
+  end
+  
+  get '/instructions' do
+    erb :instructions
   end
   
 # Authentication
