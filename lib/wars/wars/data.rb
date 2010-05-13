@@ -24,10 +24,10 @@ module Wars
       Equipment.new(:id => 10, :name => 'Heart', :limit => 5, :price => 1_000_000, :adds => :life, :amount => 50),
       # Non-Shop Special Rewards
       Equipment.new(:id => 100, :name => 'Coffee Mug', :limit => 1, :price => 0, :adds => :life, :amount => 100),
-      Equipment.new(:id => 101, :name => 'Ron\'s Bat', :limit => 1, :price => 0, :adds => :strength, :amount => 50),
+      Equipment.new(:id => 101, :name => 'Rons Bat', :limit => 1, :price => 0, :adds => :strength, :amount => 50),
       Equipment.new(:id => 102, :name => 'Mustard Colored Shirt', :limit => 1, :price => 0, :adds => :defense, :amount => 50),
-      Equipment.new(:id => 103, :name => 'Jim\'s Messenger Bag', :limit => 1, :price => 0, :adds => :space, :amount => 80),
-      Equipment.new(:id => 104, :name => 'Blake\'s Brass Balls', :limit => 1, :price => 0, :adds => :space, :amount => 300)
+      Equipment.new(:id => 103, :name => 'Jims Messenger Bag', :limit => 1, :price => 0, :adds => :space, :amount => 80),
+      Equipment.new(:id => 104, :name => 'Blakes Brass Balls', :limit => 1, :price => 0, :adds => :space, :amount => 300)
     ]
         
     Products = [
