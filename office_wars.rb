@@ -607,9 +607,33 @@ private
     end
     
     if is_game_over
+      post_to_facebook
       @player = nil
       Wars.game_over!
       redirect(url_for('/scores'))
     end
+  end
+  
+  def post_to_facebook
+    return if @player.facebook_token.blank? || !Facebook.connectable? || !options.facebook
+    
+    death = @player.death_description
+    reason = death.try(:fetch, :reason)
+    message = death.try(:fetch, :message)
+    
+    tombstone = \
+      if reason == :retired
+        "I sold all my office supplies and retired peacefully."
+      elsif reason == :bookie
+        "I would have sored higher if the bookie, #{Wars::Data::BookieName}, hadn't broken my legs!"
+      elsif reason == :quit
+        "I would have scored higher if I hadn't quit the office :("
+      else
+        "I would have scored higher if #{message || 'Somebody'} hadn't killed me!"
+      end    
+    message = "I just scored #{format_number @player.score} in OfficeWars! #{tombstone}"
+    
+    Log.info "Facebooking: #{message}"
+    Facebook::Graph.post_to_wall message, @player.facebook_token
   end
 end
