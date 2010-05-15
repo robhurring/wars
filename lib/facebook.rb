@@ -11,8 +11,8 @@ module Facebook
   end
 
   def self.auth_from_env
-    if app_id = ENV['WARS_FB_APP_ID'] && secret = ENV['WARS_FB_SECRET']
-      {:app_id => app_id, :secret => secret}
+    if ENV['WARS_FB_APP_ID'] && ENV['WARS_FB_SECRET']
+      {:app_id => ENV['WARS_FB_APP_ID'], :secret => ENV['WARS_FB_SECRET']}
     end
   end
   
