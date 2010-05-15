@@ -13,6 +13,7 @@ require 'rack-flash'
 require 'lib/helpers'
 require 'lib/core_ext'
 require 'sanitize'
+require 'lib/facebook'
 
 DatabaseAuth = YAML::load(File.read(File.join(File.dirname(__FILE__), '..', 'config', 'database.yml')))
 
