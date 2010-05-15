@@ -5,6 +5,12 @@
   
   <br/>
   <h2 align='center'><%= link_to 'Start Playing OfficeWars Now!', url_for('/login') %></h2>
+  
+  <% if options.facebook %>
+    <h2>Facebook Connect</h2>
+    <p><strong>NEW!</strong> OfficeWars is now able to connect with <strong>Facebook</strong> and post your score for your friends to see! More integration is planned for upcoming releases, so if you have an idea feel free to pass it along!</p>
+    <p>To connect your player account to Facebook, just click on the <%= image_tag 'facebook-connect.png' %> when you see it, either while playing the game, or while logging in.</p>
+  <% end %>
 
   <h2>Trading</h2>
   <p>The office is divided into different locations, each offering a list of available office products -- at fluctuating prices --   and company services. Daily events naturally happen in the work-o-sphere which can affect the price of supplies, so make sure to keep an eye out for them.</p>
