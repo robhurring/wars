@@ -137,9 +137,8 @@ module Wars
       return false
     end
   end
-  
+    
   def self.game_over!
-    raise "No player?!" if player.blank?
     reason = player.tombstone || 'Natural Causes'
     score = HighScore.new(
       :name => player.name, 
@@ -152,7 +151,7 @@ module Wars
       player.destroy
       logout
     else
-      raise "Wtf. score didnt save..."
+      log "Wtf -- score didn't save! #{score.errors.full_messages.join("\n")}"
     end
   end
 end
