@@ -173,7 +173,10 @@ module Wars
           p.days_in_debt = 0
           p.life /= 2
         else
-          p.tombstone = "Pain sandwich courtesy of #{Data::BookieName}"
+          p.death_description = {
+            :reason => :bookie,
+            :message => "Pain sandwich courtesy of #{Data::BookieName}"
+          }
           p.life = 0
         end
       }

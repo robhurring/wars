@@ -122,7 +122,10 @@ class OfficeWars < Sinatra::Base
   end
   
   get '/quit' do
-    @player.tombstone = 'Quit the Office :('
+    @player.death_description = {
+      :reason => :quit,
+      :message => 'Quit the Office :('
+    }
     Wars.game_over!
     flash[:error] = "You've quit the office. Come back again sometime and see the office is better :)"
     redirect(url_for('/scores'))
@@ -159,7 +162,10 @@ class OfficeWars < Sinatra::Base
         if @player.alive?
           flash[:attack] = "Can't escape!<br/><strong>#{npc.name}</strong> hits you for <strong>#{damage}</strong> damage!"
         else
-          @player.tombstone = npc.name
+          @player.death_description = {
+            :reason => :fight,
+            :message => npc.name
+          }
           is_game_over?
         end
       end
@@ -193,7 +199,10 @@ class OfficeWars < Sinatra::Base
         if @player.alive?
           flash[:attack] = "You whack <strong>#{npc.name}</strong> for <strong>#{damage}</strong> damage!<br/>#{npc.name} hits you for <strong>#{npc_damage}</strong> damage!"
         else
-          @player.tombstone = npc.name
+          @player.death_description = {
+            :reason => :fight,
+            :message => npc.name
+          }
           is_game_over?
         end
       else
@@ -586,7 +595,10 @@ private
     if @player.day > Wars::Data::MaxDays && !Wars::Data::MaxDays.zero?
       is_game_over = true
       flash[:notice] = "Congratulations, you survived! You can now retire!"
-      @player.tombstone = 'Peacefully retired.'
+      @player.death_description = {
+        :reason => :retired,
+        :message => 'Peacefully retired.'
+      }
     end
     
     unless @player.alive?

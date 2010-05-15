@@ -33,9 +33,6 @@ module Wars
       first(:conditions => {:name => name, :password => crypt_password(password)})
     end
 
-    # this should be set when the player is killed for the HighScore.reason
-    attr_accessor :tombstone
-
     has_one :fight, :dependent => :destroy
 
     validates_uniqueness_of :name
@@ -44,6 +41,8 @@ module Wars
 
     serialize :equipment, Array
     serialize :products, Array
+    # this stores the reason for death
+    serialize :death_description, Hash
     
     # loads our equipment into Equipment objects, with thier quantity
     def equipment_map

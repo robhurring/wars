@@ -139,7 +139,10 @@ module Wars
   end
     
   def self.game_over!
-    reason = player.tombstone || 'Natural Causes'
+    death_description = player.death_description
+    
+    reason = death_description.try(:fetch, :message) || 'Natural Causes'
+    
     score = HighScore.new(
       :name => player.name, 
       :score => player.score, 
