@@ -1,3 +1,4 @@
 tmp
 log/*.log
 config/database.yml
+config/facebook.yml
