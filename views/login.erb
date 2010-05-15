@@ -16,6 +16,19 @@
       <p id='new_user_box'>
         <input type='checkbox' name='new_user' id='new_user'> <label for='new_user' style='float:none'>Check this if you are creating an account.</label>
       </p>
+      <% if options.facebook %>
+        <p id='new_user_box' class='clearfix'>
+          <label for='fb_connect' style='float:none' class='clearfix'>
+            <div class='left'>
+              <input type='checkbox' name='fb_connect' id='fb_connect' value='1' checked>
+              <%= image_tag 'facebook-connect.png', :align => :center %>
+            </div>
+            <div class='right'>
+              <small><%= link_to 'Whats this?', url_for('/instructions#facebook') %></small>
+            </div>
+          </label>
+        </p>
+      <% end %>
       <p>
         <input type="submit" value="Start Playing &rarr;">
       </p>

@@ -97,15 +97,18 @@ class OfficeWars < Sinatra::Base
   end
   
   post '/login' do
-    Log.info 'POST --> ' + params.inspect
-    
     name = params[:name]
     pass = params[:password]
     new_user = params[:new_user]
+    facebook_connect = params[:fb_connect] == '1'
     
     if Wars.login(name, pass, new_user)
-      flash[:notice] = "Welcome back, #{Wars.player.name}!"
-      redirect(url_for('/location/%d' % Wars.player.location_id))
+      if facebook_connect
+        redirect url_for('/facebook/connect')
+      else
+        flash[:notice] = "Welcome back, #{Wars.player.name}!"
+        redirect(url_for('/location/%d' % Wars.player.location_id))
+      end
     else
       if Wars.player
         flash[:error] = Wars.player.errors.full_messages.join('<br/>')
