@@ -2,29 +2,23 @@ require 'lib/environment'
 
 class OfficeWars < Sinatra::Base
   Log = Logger.new('log/wars.log')
-
+  NonGamePaths = %w{GET:/ GET:/instructions GET:/login GET:/scores}
+  
   enable :sessions, :cookies, :logging
   use Rack::Flash, :sweep => false, :accessorize => [:notice, :error, :attack]
-  use Rack::Static, :urls => ['/css', '/images', '/js'], :root => 'public'    
+  use Rack::Static, :urls => ['/css', '/images', '/js'], :root => 'public'
   
   configure do
     Wars.logger = Log
   end
 
   before do
-    Log.info("@: %s" % request.path.inspect)    
-    Wars.initialize!(session)
-    
-    unless %w{/ /instructions /login /scores}.any?{ |path| request.path == path }
-      setup_player || redirect(url_for '/login')
-    end
-    
-    check_game_conditions
+    Log.info("@: %s" % request.path.inspect)
+    setup
   end
 
   after do
-    flash.flag!
-    Wars.save(session)
+    cleanup
   end
 
 # Main
@@ -49,6 +43,8 @@ class OfficeWars < Sinatra::Base
   end
   
   post '/login' do
+    Log.info 'POST --> ' + params.inspect
+    
     name = params[:name]
     pass = params[:password]
     new_user = params[:new_user]
@@ -474,28 +470,52 @@ class OfficeWars < Sinatra::Base
 # Support
 
 private
+  
+  # are we in the bounds of the game paths? 
+  # game paths require a user or will redirect to a /login page
+  def game_path?
+    !NonGamePaths.include?('%s:%s' % [request.request_method, request.path])
+  end
+
+  # if we are in the game paths then we should setup our game and try to setup our player
+  def setup
+    return unless game_path?
+
+    Wars.initialize!(session)
+    # unless we're trying to log in
+    unless request.post? && request.path == '/login'
+      redirect url_for('/login') if Wars.player.nil?
+      @player = Wars.player
+    end
+    check_game_conditions
+  end
+  
+  # if we are in the game paths we should save our price list
+  def cleanup
+    return unless game_path?
+
+    flash.flag!
+    Wars.save(session)
+  end
 
   def check_game_conditions
     unless Wars.event.blank?
       flash[:notice] = Wars.event.description
       is_game_over?
     end
-     
-    if is_fighting? && !request.path.include?('fight')
+    
+    # if we're in a fight, but aren't on a /fight page, redirect
+    if @player && !@player.fight.blank? && !request.path.include?('fight')
       redirect(url_for('/fight'))
     end
     
     is_game_over?
   end
 
-  def is_fighting?
-    @player && !@player.fight.blank?
-  end
-
   def is_game_over?
     return unless @player
     is_game_over = false
-    
+
     if @player.day > Wars::Data::MaxDays && !Wars::Data::MaxDays.zero?
       is_game_over = true
       flash[:notice] = "Congratulations, you survived! You can now retire!"
@@ -512,14 +532,5 @@ private
       Wars.game_over!
       redirect(url_for('/scores'))
     end
-  end
-
-  def playing?
-    @player && @player.alive?
-  end
-  
-  def setup_player
-    return nil unless Wars.player
-    @player = Wars.player
   end
 end
