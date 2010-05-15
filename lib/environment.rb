@@ -3,6 +3,8 @@ gem 'activesupport', '=2.3.5'
 gem 'activerecord', '=2.3.5'
 gem 'sanitize', '=1.2.1'
 gem 'nokogiri', '=1.4.1' # dependency of sanitize
+gem 'oauth2'
+gem 'httparty'
 
 require 'sinatra/base'
 require 'active_support'
