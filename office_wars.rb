@@ -4,7 +4,7 @@ class OfficeWars < Sinatra::Base
   Log = Logger.new('log/wars.log')
   NonGamePaths = %w{GET:/ GET:/instructions GET:/login GET:/scores}
   
-  enable :sessions, :cookies, :logging
+  enable :sessions, :cookies, :logging, :facebook
   use Rack::Flash, :sweep => false, :accessorize => [:notice, :error, :attack]
   use Rack::Static, :urls => ['/css', '/images', '/js'], :root => 'public'
   
@@ -35,7 +35,61 @@ class OfficeWars < Sinatra::Base
   get '/instructions' do
     erb :instructions
   end
+
+# Facebook
+
+  get '/facebook/connect' do
+    if Facebook.connectable? && options.facebook
+      redirect Facebook.client.web_server.authorize_url(
+        :redirect_uri => facebook_redirect_uri,
+        :scope => 'publish_stream,user_birthday'
+      )
+    else
+      flash[:notice] = "Facebook connectivity is disabled."
+      redirect url_for('/')
+    end
+  end
   
+  get '/facebook/complete' do
+    if Facebook.connectable? && options.facebook && params[:code]  
+      access_token = Facebook.client.web_server.get_access_token(params[:code], :redirect_uri => facebook_redirect_uri)
+      user = JSON.parse(access_token.get('/me'))
+      cash_reward = 0
+      
+      # everybody loves birthday wishes!
+      if user['birthday'] && @player.facebook_token.blank?
+        begin
+          birthday = Date.strptime(user['birthday'], '%m/%d/%y')
+          this_year = Date.new(Date.today.year, birthday.month, birthday.day)
+          distance = (Date.today - this_year).to_i.abs
+          if distance < 10
+            cash_reward = @player.level * 10_000
+            flash[:notice] = "Happy Birthday! Here's a gift of $#{format_number cash_reward}"
+          end
+        end
+      else
+        if @player.facebook_token.blank?
+          cash_reward = 5_000
+          flash[:notice] = "Thanks for connecting! Here's #{format_number cash_reward} as a small token of our appreciation."
+        end
+      end
+      
+      @player.update_attributes(
+        :facebook_token => access_token.token.to_s,
+        :cash => @player.cash + cash_reward
+      )
+      
+      erb :facebook_connected
+    else
+      if params[:code]
+        flash[:error] = "Facebook connecting failed!"
+      else
+        flash[:error] = "Facebook connectivity is disabled."
+      end
+      redirect url_for('/')
+    end
+  end
+
 # Authentication
 
   get '/login' do
@@ -470,6 +524,19 @@ class OfficeWars < Sinatra::Base
 # Support
 
 private
+  
+  def facebook_redirect_uri
+    uri = URI.parse(request.url)
+    uri.path = '/facebook/complete'
+    uri.query = nil
+    uri.to_s
+  end
+  
+  # enable facebook connecting -- tucked away in ENV since i'm deploying on heroku right now
+  def facebook_connectable?
+    return false unless options.facebook
+    options.facebook && ENV['WARS_FB_APP_ID'] && ENV['WARS_FB_SECRET']
+  end
   
   # are we in the bounds of the game paths? 
   # game paths require a user or will redirect to a /login page

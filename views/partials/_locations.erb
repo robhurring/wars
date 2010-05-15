@@ -13,7 +13,8 @@
   </ul>
   <h3>Actions</h3>
   <ul>
-    <li><%= link_to 'Quit Job', '/quit', :html => {:class => 'destructive', :data => '{message:"Are you sure you want to delete your player and quit the office?\nYou cannot undo this!"}'} %></li>
-    <li><%= link_to 'Logout', '/logout' %></li>
+    <li><%= link_to 'Facebook Connect', url_for('/facebook/connect') %></li>
+    <li><%= link_to 'Quit Job', url_for('/quit'), :html => {:class => 'destructive', :data => '{message:"Are you sure you want to delete your player and quit the office?\nYou cannot undo this!"}'} %></li>
+    <li><%= link_to 'Logout', url_for('/logout') %></li>
   </ul>
 </div>
