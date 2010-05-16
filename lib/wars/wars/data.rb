@@ -109,8 +109,8 @@ module Wars
       Npc.new(
         :id => 103,
         :name => 'Dwight Shrute',
-        :strength => 80,
-        :defense => 100,
+        :strength => 75,
+        :defense => 80,
         :life => 350,
         :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(102), (75_000..100_000), 1, 1) },
         :condition => Proc.new{ |p| p.strength >= 100 }
@@ -119,7 +119,7 @@ module Wars
         :id => 104,
         :name => 'Blake',
         :strength => 100,
-        :defense => 125,
+        :defense => 140,
         :life => 500,
         :rewards => Proc.new{ |p| Data.boss_reward(p, Equipment.find(104), (200_000..500_000), 1, 1) },
         :condition => Proc.new{ |p| p.strength >= 150 && p.defense >= 85 }
