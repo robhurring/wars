@@ -106,6 +106,13 @@ All other stores have their inventory defined in arrays of +Equipment+ objects.
       Equipment.find(2)
     ])
 
+  # Add the loan shark to location 1
+  Stores << Store.new(
+    :location_id => 21, 
+    :name => 'Loan Shark', 
+    :sells => :loans
+  )
+
 ===NPCs (Fights)
 
 An NPC is who the player fights every +EncounterRange+ days if +Encounters+ is set to true.
