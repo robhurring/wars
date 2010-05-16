@@ -108,7 +108,7 @@ All other stores have their inventory defined in arrays of +Equipment+ objects.
 
   # Add the loan shark to location 1
   Stores << Store.new(
-    :location_id => 21, 
+    :location_id => 1, 
     :name => 'Loan Shark', 
     :sells => :loans
   )
