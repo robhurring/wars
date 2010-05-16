@@ -16,154 +16,154 @@ There is a demo up and running on heroku: http://officewars.heroku.com
 
 ===Products
 
-  Products are what the player can buy and sell at different locations to make cash.
-  Prices fluctuate normally between the +price_range+. Special events also occur which might bump prices down or up. 
-  If the price is bumped down, the +:min_message+ is shown in the event box, if it goes up the +:max_message+ is displayed.
-  
-    # Add a product for speakers, selling between 1000-3000
-    Products << Product.new(
-      :id => 999
-      :name => 'Speakers',
-      :price_range => (1000..3000),
-      :min_message => 'Speakers are really cheap!',
-      :max_message => 'Speakers are really expensive!'
-    )
+Products are what the player can buy and sell at different locations to make cash.
+Prices fluctuate normally between the +price_range+. Special events also occur which might bump prices down or up. 
+If the price is bumped down, the +:min_message+ is shown in the event box, if it goes up the +:max_message+ is displayed.
+
+  # Add a product for speakers, selling between 1000-3000
+  Products << Product.new(
+    :id => 999
+    :name => 'Speakers',
+    :price_range => (1000..3000),
+    :min_message => 'Speakers are really cheap!',
+    :max_message => 'Speakers are really expensive!'
+  )
     
 ===Equipment
 
-  Equipment is what the player can purchase to help boost certain stats. 
-  As long as the equipment is in the players control that attribute is boosted.
-  
-  Equipment can also be +:disposable+ which is generally used for healing. 
-  If an item is disposable its immediately applied to the player, but not stored in their +equipment+ array.
-  
-  Equipment has the following attributes:
-    
-    id:: the ID used to reference the equipment
-    name:: name of the equipment
-    limit:: This is how many the player is allowed to have in their equipment array. 
-    price:: how much the equipment costs
-    adds:: [:space, :life, :strength, :defense]
-    amount:: this is a modifier of the +:adds+ column.
-    disposable:: if this is set to +true+ the equipment is immediately applied to the player and disposed of
-  
-  Equipment can adjust the following attributes, in the +:adds+ attribute:
+Equipment is what the player can purchase to help boost certain stats. 
+As long as the equipment is in the players control that attribute is boosted.
 
-    life:: This adds to the player's max life as long as they hold the item.
-    space:: This adds space so the player can carry more items.
-    strength:: This makes the player hit harder in fights.
-    defense:: This helps the player absorb hits in fights.
+Equipment can also be +:disposable+ which is generally used for healing. 
+If an item is disposable its immediately applied to the player, but not stored in their +equipment+ array.
 
-    # Add an awesome weapon
-    Equipments << Equipment.new(
-      :id => 999, 
-      :name => 'Awesome Weapon',
-      :limit => 1,
-      :price => 120_000,
-      :adds => :strength,
-      :amount => 100,
-      :disposable => false
-    )
+Equipment has the following attributes:
+  
+id:: the ID used to reference the equipment
+name:: name of the equipment
+limit:: This is how many the player is allowed to have in their equipment array. 
+price:: how much the equipment costs
+adds:: [:space, :life, :strength, :defense]
+amount:: this is a modifier of the +:adds+ column.
+disposable:: if this is set to +true+ the equipment is immediately applied to the player and disposed of
 
-    # Adds a healing item
-    Equipments << Equipment.new(
-      :id => 998, 
-      :name => 'Healing Thing',
-      :limit => 999,  # limit should be set so they can buy enough to fully heal
-      :price => 10_000,
-      :adds => :life,
-      :amount => 10,
-      :disposable => true # apply life immediately and throw away the med pack
-    )
+Equipment can adjust the following attributes, in the +:adds+ attribute:
+
+life:: This adds to the player's max life as long as they hold the item.
+space:: This adds space so the player can carry more items.
+strength:: This makes the player hit harder in fights.
+defense:: This helps the player absorb hits in fights.
+
+  # Add an awesome weapon
+  Equipments << Equipment.new(
+    :id => 999, 
+    :name => 'Awesome Weapon',
+    :limit => 1,
+    :price => 120_000,
+    :adds => :strength,
+    :amount => 100,
+    :disposable => false
+  )
+
+  # Adds a healing item
+  Equipments << Equipment.new(
+    :id => 998, 
+    :name => 'Healing Thing',
+    :limit => 999,  # limit should be set so they can buy enough to fully heal
+    :price => 10_000,
+    :adds => :life,
+    :amount => 10,
+    :disposable => true # apply life immediately and throw away the med pack
+  )
 
 ===Locations
   
-  Locations are where players buy products and see available shops. 
-  To customize the locations in the game, edit the +Locations+ array in the data file.
+Locations are where players buy products and see available shops. 
+To customize the locations in the game, edit the +Locations+ array in the data file.
 
-    # Have a location appear at slot 8
-    Locations << Location.new(:id => 8, :name => 'Some Location')
+  # Have a location appear at slot 8
+  Locations << Location.new(:id => 8, :name => 'Some Location')
 
 ===Stores
   
-  Stores are where players can buy equipment to boost their strength, defense, space or life points. You can customize the
-  stores in the *data* file. Each store must be linked to a +location_id+ to show up.
-  
-  There are a few built-in store types you can use for game specific needs:
-  
-  bank:: This is where the player can store extra cash they have and earn +BankInterestRate+ interest.
-  loans:: This is where the player can borrow or repay the bookie. The bookie's name is defined in +BookieName+. If the player doesn't pay the bookie back within +BookieTolerance+ days, the bookie will break their legs and end the game.
-  bulletins:: This is a place the player can go to pay +BulletinCost+ cash to leave a small message on the bulletin board. Message length is defined in +BulletinLength.
-  
-  All other stores have their inventory defined in arrays of +Equipment+ objects.
-  
-    # Have a store appear at location 2, that sells equipments 1,2
-    Stores << Store.new(
-      :location_id => 2, 
-      :name => 'My Store', 
-      :sells => [
-        Equipment.find(1), 
-        Equipment.find(2)
-      ])
+Stores are where players can buy equipment to boost their strength, defense, space or life points. You can customize the
+stores in the *data* file. Each store must be linked to a +location_id+ to show up.
+
+There are a few built-in store types you can use for game specific needs:
+
+bank:: This is where the player can store extra cash they have and earn +BankInterestRate+ interest.
+loans:: This is where the player can borrow or repay the bookie. The bookie's name is defined in +BookieName+. If the player doesn't pay the bookie back within +BookieTolerance+ days, the bookie will break their legs and end the game.
+bulletins:: This is a place the player can go to pay +BulletinCost+ cash to leave a small message on the bulletin board. Message length is defined in +BulletinLength.
+
+All other stores have their inventory defined in arrays of +Equipment+ objects.
+
+  # Have a store appear at location 2, that sells equipments 1,2
+  Stores << Store.new(
+    :location_id => 2, 
+    :name => 'My Store', 
+    :sells => [
+      Equipment.find(1), 
+      Equipment.find(2)
+    ])
 
 ===NPCs (Fights)
 
-  An NPC is who the player fights every +EncounterRange+ days if +Encounters+ is set to true.
-  An NPC is eligible to fight if their +:condition+ block returns true, and if a fight is won the
-  npc rewards the +:reward+ proc. The condition and reward block is called with the player object passed in
+An NPC is who the player fights every +EncounterRange+ days if +Encounters+ is set to true.
+An NPC is eligible to fight if their +:condition+ block returns true, and if a fight is won the
+npc rewards the +:reward+ proc. The condition and reward block is called with the player object passed in
+
+An NPC has the following attributes:
+
+id:: the ID to be stored in the fight object
+name:: name of the NPC
+strength:: how hard the NPC will hit. (can be randomized with a Range)
+defense:: how much damage the NPC absorbs from player hits (can be randomized with a Range)
+life:: how much life the NPC has (can be randomized with a Range)
+condition:: (block - called with player object) this is called on the player object, if true then the NPC enters the fight pool
+rewards:: (block - called with player object) this block determines the reward for the player if the fight is won. this should return an array
+with the [object, quantity] where object is either a +Product+, +Equipment+ or special +:cash+ type. Quantity is the
+amount of the product, equipment or cash to be rewarded.
   
-  An NPC has the following attributes:
+  # Simple NPC that rewards cash
+  Npcs << Npc.new(
+    :id => 1,
+    :name => 'Simple NPC',
+    :strength => 25,
+    :defense => 10,
+    :life => 100,
+    :condition => Proc.new{ true }, # always available
+    :rewards => Proc.new{ [:cash, 5_000] } # always give 5k cash
+  )
   
-    id:: the ID to be stored in the fight object
-    name:: name of the NPC
-    strength:: how hard the NPC will hit. (can be randomized with a Range)
-    defense:: how much damage the NPC absorbs from player hits (can be randomized with a Range)
-    life:: how much life the NPC has (can be randomized with a Range)
-    condition:: (block - called with player object) this is called on the player object, if true then the NPC enters the fight pool
-    rewards:: (block - called with player object) this block determines the reward for the player if the fight is won. this should return an array
-    with the [object, quantity] where object is either a +Product+, +Equipment+ or special +:cash+ type. Quantity is the
-    amount of the product, equipment or cash to be rewarded.
-    
-    # Simple NPC that rewards cash
-    Npcs << Npc.new(
-      :id => 1,
-      :name => 'Simple NPC',
-      :strength => 25,
-      :defense => 10,
-      :life => 100,
-      :condition => Proc.new{ true }, # always available
-      :rewards => Proc.new{ [:cash, 5_000] } # always give 5k cash
-    )
-    
-    # NPC with variable strength, defense and life that shows up when a player is level 10+ and rewards
-    # a random product
-    Npcs << Npc.new(
-      :id => 2,
-      :name => 'Variable NPC',
-      :strength => (25..50),
-      :defense => (10..25),
-      :life => (100..150),
-      :condition => Proc.new{ |player| player.level >= 10 },
-      :rewards => Proc.new{ [Product.all[rand(Product.size)], 1] } 
-    )
+  # NPC with variable strength, defense and life that shows up when a player is level 10+ and rewards
+  # a random product
+  Npcs << Npc.new(
+    :id => 2,
+    :name => 'Variable NPC',
+    :strength => (25..50),
+    :defense => (10..25),
+    :life => (100..150),
+    :condition => Proc.new{ |player| player.level >= 10 },
+    :rewards => Proc.new{ [Product.all[rand(Product.size)], 1] } 
+  )
 
 ===Events
 
-  An event is something random that happens when moving between locations. This can be a reward, or a game-over event, etc.
+An event is something random that happens when moving between locations. This can be a reward, or a game-over event, etc.
+
+An event has the following attributes:
+
+description:: description of the event
+condition:: (block) what triggers this event
+action:: (block - called with player object) what this event does
   
-  An event has the following attributes:
-  
-    description:: description of the event
-    condition:: (block) what triggers this event
-    action:: (block - called with player object) what this event does
-    
   # Event that randomly awards cash
   Event.new(
    :description => "You found some money on the ground!",
    :condition => Proc.new{ rand(30) == 0 }, # Every rand(30) days
    :action => Proc.new{ |p| p.cash += (500..1000).rand } # reward 500-1000 cash
   )
-  
+
   # Event that kills the player randomly, for fun. The +check_game_conditions+ check will notice that
   # the player is no longer +alive?+ and end the game, using the +death_description+ for the score list
   Event.new(
