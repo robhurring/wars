@@ -1,8 +1,8 @@
-gem 'sinatra', '=1.0'
+gem 'sinatra', '~> 1.0'
 gem 'activesupport', '=2.3.5'
 gem 'activerecord', '=2.3.5'
-gem 'sanitize', '=1.2.1'
 gem 'nokogiri', '=1.4.1' # dependency of sanitize
+gem 'sanitize', '=1.2.1'
 gem 'oauth2'
 gem 'httparty'
 
