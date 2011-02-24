@@ -2,7 +2,7 @@ require 'lib/environment'
 
 class OfficeWars < Sinatra::Base
   Log = Logger.new('log/wars.log')
-  NonGamePaths = %w{GET:/ GET:/instructions GET:/login GET:/scores}
+  NonGamePaths = %w{GET:/ GET:/instructions GET:/login GET:/scores GET:/favicon.ico}
   
   enable :sessions, :cookies, :logging, :facebook
   use Rack::Flash, :sweep => false, :accessorize => [:notice, :error, :attack]
