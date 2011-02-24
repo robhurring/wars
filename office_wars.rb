@@ -11,6 +11,10 @@ class OfficeWars < Sinatra::Base
   configure do
     Wars.logger = Log
   end
+  
+  configure :production do
+    Log.level = Logger::WARN
+  end
 
   before do
     Log.info("@: %s" % request.path.inspect)
