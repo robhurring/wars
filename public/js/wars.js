@@ -1,5 +1,6 @@
 $.wars = {
   debug: true,
+  idevice: isIdevice(),
   quick_transactions: true,
   keyboard_shortcuts: true,
   paths: {
@@ -107,6 +108,7 @@ $(function()
 
 // Bank & Loans
 
+  
   $('#amount').focus();
   $('#amount').select();
 
@@ -211,8 +213,13 @@ function setup_transaction(select)
   $('#transaction_is_product').val(is_product);
   $('#transaction_quantity').val(quantity);
   $('#transaction_submit').val((buying ? 'Buy!' : 'Sell!'));
-  $('#transaction_quantity').focus();
-  $('#transaction_quantity').select();
+  
+  // idevices don't work well with auto-focus for these fields
+  if(!$.wars.idevice)
+  {
+    $('#transaction_quantity').focus();
+    $('#transaction_quantity').select();
+  }
 
   if(quantity <= 0)
     $('#transaction_fields').hide();  
@@ -224,4 +231,13 @@ function debug(msg)
 {
   if(typeof(console) !== 'undefined' && console != null && $.wars.debug)
     console.log(msg);
+}
+
+function isIdevice()
+{
+  return (
+      (navigator.platform.indexOf('iPhone') != -1) ||
+      (navigator.platform.indexOf('iPod') != -1) ||
+      (navigator.platform.indexOf('iPad') != -1)
+  );  
 }
