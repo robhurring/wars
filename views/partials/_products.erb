@@ -5,7 +5,7 @@
   <% end %>
   <div class='clearfix'>
     <div class='left product_table'>
-      <select id='buyable' size='10'  data="{products: true, buying: true}">
+      <select id='buyable' size='10' data="{products: true, buying: true}">
         <% Wars::Product.all.each do |product| %>
           <% 
             quantity = (@player.cash / product.price).round
