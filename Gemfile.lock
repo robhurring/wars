@@ -1,0 +1,40 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    activerecord (2.3.5)
+      activesupport (= 2.3.5)
+    activesupport (2.3.5)
+    addressable (2.2.4)
+    crack (0.1.6)
+    faraday (0.4.6)
+      addressable (>= 2.1.1)
+      rack (>= 1.0.1)
+    httparty (0.5.2)
+      crack (= 0.1.6)
+    mysql (2.8.1)
+    nokogiri (1.4.4)
+    oauth2 (0.0.8)
+      faraday (~> 0.4.1)
+    rack (1.2.2)
+    rack-flash (0.1.1)
+      rack
+    sanitize (1.2.1)
+      nokogiri (~> 1.4.1)
+    sinatra (1.2.2)
+      rack (~> 1.1)
+      tilt (>= 1.2.2, < 2.0)
+    tilt (1.2.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  activerecord (= 2.3.5)
+  activesupport (= 2.3.5)
+  httparty (= 0.5.2)
+  mysql
+  nokogiri (~> 1.4)
+  oauth2 (= 0.0.8)
+  rack-flash
+  sanitize (~> 1.2)
+  sinatra (~> 1)

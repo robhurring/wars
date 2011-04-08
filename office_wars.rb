@@ -1,4 +1,4 @@
-require 'lib/environment'
+require './lib/environment'
 
 class OfficeWars < Sinatra::Base
   Log = Logger.new('log/wars.log')

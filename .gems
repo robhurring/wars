@@ -1,8 +1,0 @@
-rack-flash
-sinatra --version="1.0"
-activesupport --version="2.3.5"
-activerecord --version="2.3.5"
-sanitize --version="1.2.1"
-nokogiri --version="1.4.1"
-oauth2 --version="0.0.8"
-httparty --version="0.5.2"

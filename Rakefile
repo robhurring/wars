@@ -1,7 +1,7 @@
 %w{rubygems benchmark logger yaml pp}.each{ |lib| require lib }
 
 task :environment do
-  require 'lib/environment'
+  require './lib/environment'
 end
 
 namespace :db do
