@@ -93,6 +93,12 @@ $(function()
   $('#buyable').live('click', function(){ setup_transaction(this); });
   $('#sellable').live('click', function(){ setup_transaction(this); });
   
+  if($.wars.idevice)
+  {
+    $('#buyable').live('blur', function(){ setup_transaction(this); });
+    $('#sellable').live('blur', function(){ setup_transaction(this); });
+  }
+  
   $('#transaction_submit').live('click', function(){ preform_transaction(); });
   $('#transaction_quantity').live('keypress', function(event){ if(event.charCode == 13) preform_transaction(); });
 
